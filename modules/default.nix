@@ -1,0 +1,3 @@
+{
+  host-application = import ./application;
+}
