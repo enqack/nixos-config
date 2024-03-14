@@ -54,10 +54,10 @@
         specialArgs = { inherit inputs outputs; };
       };
 
-      belfound = nixpkgs.lib.nixosSystem {
+      bellfound = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/belfound/configuration.nix
+          ./hosts/bellfound/configuration.nix
         ];
         specialArgs = { inherit inputs outputs; };
       };

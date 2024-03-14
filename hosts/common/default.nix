@@ -36,12 +36,22 @@
   host = {
     application = {
       bat.enable = mkDefault true;
+      bind.enable = mkDefault false;
+      binutils.enable = mkDefault true;
+      coreutils.enable = mkDefault true;
       curl.enable = mkDefault true;
       dhcpcd.enable = mkDefault true;
+      dust.enable = mkDefault true;
+      e2fsprogs.enable = mkDefault true;
+      fzf.enable = mkDefault true;
       git.enable = mkDefault true;
       glow.enable = mkDefault true;
       gpm.enable = mkDefault true;
       htop.enable = mkDefault true;
+      iftop.enable = mkDefault true;
+      less.enable = mkDefault true;
+      lsof.enable = mkDefault true;
+      pciutils.enable = mkDefault true; 
       rsync.enable = mkDefault true;
       tmux.enable = mkDefault true;
       tree.enable = mkDefault true;
@@ -55,18 +65,19 @@
     feature = {
       home-manager.enable = mkDefault true;
     };
+    service = {
+      logrotate.enable = mkDefault true;
+      ssh = {
+        enable = mkDefault true;
+        harden = mkDefault false;
+      };
+    };
   };
   
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  #host = {
-  #  application = {
-  #    rsync.enable = lib.mkDefault true;
-  #  };
-  #};
 
   environment.sessionVariables = {
     # Enable scrolling in git diff
@@ -95,14 +106,6 @@
   # networking.firewall.enable = false;
 
   users.defaultUserShell = pkgs.zsh;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’..
-  #users.users.sysop = {
-  #  isNormalUser = true;
-  #  description = "sysop";
-  #  extraGroups = [ "networkmanager" "wheel" ];
-  #  packages = with pkgs; [];
-  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

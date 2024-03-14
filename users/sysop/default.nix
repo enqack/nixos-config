@@ -23,6 +23,7 @@ in {
   config = lib.mkIf config.host.user.sysop.enable {
     users.users.sysop = {
       isNormalUser = true;
+      description = "sysop";
       group = "users";
       extraGroups = [
         "wheel"
