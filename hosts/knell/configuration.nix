@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { lib, config, pkgs, inputs, ... }:
+let
 
+in
 {
   options = {
     hostname = lib.mkOption {
@@ -22,10 +24,6 @@
       role = "server";
       network = {
         hostname = "knell";
-        wired = {
-          enable = true;
-          type = "dynamic";
-        };
       };
       user.sysop.enable = true;
     };

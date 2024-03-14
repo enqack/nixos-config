@@ -80,6 +80,7 @@ in
         networks = {
           "${config.host.network.hostname}" = {
              networkConfig.DHCP = mkIf (cfg.type == "dynamic") "yes";
+             matchConfig.Name = "*";
              matchConfig.MACAddress = cfg.mac ;
              address = mkIf (cfg.type == "static") [
                cfg.ip

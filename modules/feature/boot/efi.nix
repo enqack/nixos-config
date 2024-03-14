@@ -13,6 +13,11 @@ in
           type = with types; bool;
           description = "Enables booting via EFI";
         };
+        efiSysMountPoint = mkOption {
+          default = "/boot/efi";
+          type = with types; str;
+          description = "EFI mount point.";
+        };
       };
       loader = mkOption {
         default = "grub";
@@ -28,6 +33,7 @@ in
       loader = {
         efi = {
           canTouchEfiVariables = false;
+          efiSysMountPoint = cfg.efi.efiSysMountPoint;
         };
         grub = mkIf (cfg.loader == "grub") {
           enable = mkDefault true;
