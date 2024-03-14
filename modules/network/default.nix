@@ -3,5 +3,7 @@
 {
   imports = [
     ./firewall
+    ./hostname.nix
+    ./wired.nix
   ];
 }

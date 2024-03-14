@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   options = {
@@ -16,11 +16,22 @@
     ../common
   ];
 
+
   config = {
+    host = {
+      role = "server";
+      network = {
+        hostname = "knell";
+        wired = {
+          enable = true;
+          type = "dynamic";
+        };
+      };
+      user.sysop.enable = true;
+    };
+
     networking = {
-      hostName = "knell"; 
-      #wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-      networkmanager.enable = true;
+      hostName = "knell";
     };
   };
 }

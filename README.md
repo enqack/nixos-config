@@ -18,6 +18,7 @@
   - `hardware`: Bluetooth, Printing, Sound, Wireless
   - `network`: Firewalls and VPNs
   - `service`: Miscellanious daemons
+  - `roles`: Machine roles ie. laptop or server
 - `overlays`: Ammendments and updates to packages that exist in the nix ecosphere
 - `packages`: Custom packages, services, scripts that are specific to this installation
 - `users`: Individual User folders
