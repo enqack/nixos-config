@@ -19,7 +19,7 @@ in
       zsh
     ];
 
-    programs.zsh {
+    programs.zsh = {
       enable = true;
       enableLsColors = true;
       enableCompletion = true;
@@ -43,8 +43,8 @@ in
     };
 
     environment.etc = {
-      "zshenv.local" = { source = ./files/zsh/zshenv.local; };
-      "zshrc.local" = { source = ./files/zsh/zshrc.local; };
+      "zshenv.local" = { source = ./files/zshenv.local; };
+      "zshrc.local" = { source = ./files/zshrc.local; };
     };        
   };
 }

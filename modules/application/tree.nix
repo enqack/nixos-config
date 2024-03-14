@@ -1,24 +1,22 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.application.rsync;
+  cfg = config.host.application.tree;
 in
 {
   options = {
-    host.application.rsync = {
+    host.application.tree = {
       enable = lib.mkOption {
         default = false;
         type = with lib.types; bool;
-        description = "Enables remote syncing tool";
+        description = "Enables tree";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      rsync
+      tree
     ];
-
-    ## TODO Add bash aliases
   };
 }

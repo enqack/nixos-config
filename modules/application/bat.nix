@@ -1,24 +1,22 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.application.rsync;
+  cfg = config.host.application.bat;
 in
 {
   options = {
-    host.application.rsync = {
+    host.application.bat = {
       enable = lib.mkOption {
         default = false;
         type = with lib.types; bool;
-        description = "Enables remote syncing tool";
+        description = "Enables a better cat";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      rsync
+      bat
     ];
-
-    ## TODO Add bash aliases
   };
 }

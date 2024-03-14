@@ -1,7 +1,11 @@
 { lib, config, outputs, pkgs, ... }:
-
+  with lib;
 {
-  imports = (builtins.attrValues outputs.nixosModules);
+  imports = [
+    ./nix.nix
+    ./locale.nix
+    ../../users
+  ] ++ (builtins.attrValues outputs.nixosModules);
 
   boot = {
     kernelParams = [ "nohibernate" ];
@@ -19,29 +23,6 @@
     };
   };
 
-  nix = {
-    settings = {
-      warn-dirty = false;
-      experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
-    };
-  };
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
-  # Set your time zone.
-  time.timeZone = "UTC";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.utf8";
-  i18n.extraLocaleSettings = {
-    LC_TIME = "en_DK.utf8";
-  };
-
   console = {
     packages = [pkgs.terminus_font];
     font = "${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
@@ -52,22 +33,30 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal ];
   xdg.portal.config.common.default = "*";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    bat
-    curl
-    dhcpcd
-    git
-    glow
-    gpm
-    htop
-    tmux
-    tree
-    vim
-    wget
-  ];
-
+  host = {
+    application = {
+      bat.enable = mkDefault true;
+      curl.enable = mkDefault true;
+      dhcpcd.enable = mkDefault true;
+      git.enable = mkDefault true;
+      glow.enable = mkDefault true;
+      gpm.enable = mkDefault true;
+      htop.enable = mkDefault true;
+      rsync.enable = mkDefault true;
+      tmux.enable = mkDefault true;
+      tree.enable = mkDefault true;
+      vim.enable = mkDefault true;
+      wget.enable = mkDefault true;
+      zsh.enable = mkDefault true;
+    };
+    user = {
+      sysop.enable = mkDefault true;
+    };
+    feature = {
+      home-manager.enable = mkDefault true;
+    };
+  };
+  
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
@@ -79,35 +68,7 @@
   #  };
   #};
 
-    programs.zsh = {
-      enable = true;
-      enableLsColors = true;
-      enableCompletion = true;
-      enableGlobalCompInit = true;
-      enableBashCompletion = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-
-      shellAliases = {
-        ll = "ls -alF";
-        la = "ls -A";
-        lt = "ls -ltr";
-        l  = "ls -CF";
-
-        df = "df -h";
-        free = "free -h";
-      };
-
-      histSize = 100000;
-      histFile = "~/.config/zsh/history";
-    };
-
-    environment.etc = {
-      "zshenv.local" = { source = ../../modules/application/zsh/files/zshenv.local; };
-      "zshrc.local" = { source = ../../modules/application/zsh/files/zshrc.local; };
-    };
-
-  environment.sessionVariables = rec {
+  environment.sessionVariables = {
     # Enable scrolling in git diff
     DELTA_PAGER = "less -R";
   };
@@ -125,6 +86,7 @@
 
   # Enable the OpenSSH daemon
   services.openssh.enable = true;
+  services.openssh.settings.PermitRootLogin = "yes";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -135,12 +97,12 @@
   users.defaultUserShell = pkgs.zsh;
 
   # Define a user account. Don't forget to set a password with ‘passwd’..
-  users.users.sysop = {
-    isNormalUser = true;
-    description = "sysop";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-  };
+  #users.users.sysop = {
+  #  isNormalUser = true;
+  #  description = "sysop";
+  #  extraGroups = [ "networkmanager" "wheel" ];
+  #  packages = with pkgs; [];
+  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -1,24 +1,22 @@
 {config, lib, pkgs, ...}:
 
 let
-  cfg = config.host.application.rsync;
+  cfg = config.host.application.vim;
 in
 {
   options = {
-    host.application.rsync = {
+    host.application.vim = {
       enable = lib.mkOption {
         default = false;
         type = with lib.types; bool;
-        description = "Enables remote syncing tool";
+        description = "Enables vim";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      rsync
+      vim
     ];
-
-    ## TODO Add bash aliases
   };
 }

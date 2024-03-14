@@ -4,13 +4,20 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manger = {
+    home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    impermanence.url = "github:nix-community/impermanence";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, ... }:
   let
     inherit (self) outputs;
     systems = [ "x86_64-linux" "aarch64-linux" ];
@@ -35,13 +42,6 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/knell/configuration.nix
-
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.sysop = import ./users/sysop;
-          }
         ];
         specialArgs = { inherit inputs outputs; };
       };
@@ -50,13 +50,6 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/grillage/configuration.nix
-
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.sysop = import ./users/sysop;
-          }
         ];
         specialArgs = { inherit inputs outputs; };
       };
@@ -65,13 +58,6 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/belfound/configuration.nix
-
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.sysop = import ./users/sysop;
-          }
         ];
         specialArgs = { inherit inputs outputs; };
       };

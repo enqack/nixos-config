@@ -1,30 +1,42 @@
-{ config, pkgs, ...}:
+{ config, lib, pkgs, ...}:
 
 let
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 
 dataHome = config.xdg.dataHome;
 configHome = config.xdg.configHome;
 cacheHome = config.xdg.cacheHome;
 runtimeDir = config.xdg.runtimeDir;
 
-in rec {
-  imports = [ ../common ];  
+in {
+  options = {
+    host.user.sysop = {
+      enable = lib.mkOption {
+        default = false;
+        type = with lib.types; bool;
+        description = "Enable the sysop user";
+      };
+    };
+  };
+ 
 
-  home.username = "sysop";
-  home.homeDirectory = "/home/sysop";
-
-  xdg.enable = true;
-
-  home.packages = with pkgs; [
-    neofetch
-    lf
-  ];
-
-  # Create symlink for .zshenv in home directory
-  #home.file.".zshenv".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/zsh/.zshenv";
-
-  home.stateVersion = "23.11";
-
-  # Let home manager install and manage itself.
-  programs.home-manager.enable = true;
+  config = lib.mkIf config.host.user.sysop.enable {
+    users.users.sysop = {
+      isNormalUser = true;
+      group = "users";
+      extraGroups = [
+        "wheel"
+      ] ++ ifTheyExist [
+        "video"
+        "audio"
+        "docker"
+        "git"
+        "libvirtd"
+      ];
+      
+      # openssh.authorizedKeys.key = [ (builtin.readFile ./ssh.pub) ];
+      # hashedPasswordFile = mkDefault config.sops.secrets.sysop-password.path;
+    };
+    # create ~/.config/home-manger/flake.nix
+  };   
 }
