@@ -51,8 +51,8 @@ PROMPT='%B%{$fg[red]%}[%{$fg[green]%}%D %T%{$fg[red]%}][%{$fg[yellow]%}%n%{$fg[g
 
 if [[ $USER == 'root' ]]; then
     PROMPT="$PROMPT # "
-#else
-#    PROMPT="$PROMPT $ "
+else
+    PROMPT="$PROMPT $ "
 fi
 
 # Mail notification
