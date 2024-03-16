@@ -11,8 +11,10 @@
   ];
 
   config = {
-    networking = {
-      hostName = "knell"; 
+    host = {
+      network = {
+        hostname = "knell"; 
+      };
     };
   };
 }

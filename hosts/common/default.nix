@@ -55,6 +55,13 @@
     feature = {
       home-manager.enable = mkDefault true;
     };
+    service = {
+      logrotate.enable = mkDefault true;
+      ssh = {
+        enable = mkDefault true;
+        harden = mkDefault false;
+      };
+    };
   };
   
   # programs.gnupg.agent = {
@@ -76,8 +83,7 @@
     libvirtd.enable = true;
   };
 
-  # Enable the OpenSSH daemon
-  services.openssh.enable = true;
+  #TODO Disable dangerous ssh setting
   services.openssh.settings.PermitRootLogin = "yes";
 
   users.defaultUserShell = pkgs.zsh;

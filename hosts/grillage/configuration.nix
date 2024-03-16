@@ -11,8 +11,10 @@
   ];
 
   config = {
-    networking = {
-      hostName = "grillage"; 
+    host = {
+      network = {
+        hostname = "grillage";
+      };
     };
   };
 }
