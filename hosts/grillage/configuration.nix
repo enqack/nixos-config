@@ -11,6 +11,7 @@
   ];
 
   config = {
+    nixpkgs.hostPlatform = "x86_64-linux";
     host = {
       network = {
         hostname = "grillage";

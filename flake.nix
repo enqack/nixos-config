@@ -27,9 +27,6 @@
       config.allowUnfree = true;
     });
 
-    users = [
-      "sysop"
-    ];
   in {
     nixosModules = import ./modules;
     overlays = import ./overlays { inherit inputs outputs; };
@@ -39,7 +36,6 @@
     nixosConfigurations = {
 
       knell = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./hosts/knell/configuration.nix
         ];
@@ -47,17 +43,15 @@
       };
 
       grillage = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./hosts/grillage/configuration.nix
         ];
         specialArgs = { inherit inputs outputs; };
       };
 
-      belfound = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      bellfound = nixpkgs.lib.nixosSystem {
         modules = [
-          ./hosts/belfound/configuration.nix
+          ./hosts/bellfound/configuration.nix
         ];
         specialArgs = { inherit inputs outputs; };
       };

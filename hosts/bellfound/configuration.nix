@@ -5,18 +5,13 @@
 { lib, config, pkgs, ... }:
 
 {
-  options = {
-    hostname = lib.mkOption {
-      type = lib.types.string;
-    };
-  };
-
   imports = [
     ./hardware-configuration.nix
     ../common
   ];
 
   config = {
+    nixpkgs.hostPlatform = "x86_64-linux";
     networking = {
       hostName = "bellfound"; 
       #wireless.enable = true;  # Enables wireless support via wpa_supplicant.
