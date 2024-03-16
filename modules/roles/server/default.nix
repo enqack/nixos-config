@@ -49,22 +49,22 @@ in
 
           ];
         };
-#        swap = {
-#          enable = mkDefault true;
-#          type = mkDefault "file";
-#          file = mkDefault "/swap/swap-file";
-#        };
+        swap = {
+          enable = mkDefault true;
+          type = mkDefault "file";
+          file = mkDefault "/swap/swap-file";
+        };
       };
-#      hardware = {
-#        bluetooth.enable = mkDefault false;
-#        printing.enable = mkDefault false;            # My use case never involves a print server
-#        raid.enable = mkDefault false;
-#        scanning.enable = mkDefault false;
-#        sound.enable = mkDefault false;
-#        webcam.enable = mkDefault false;
-#        wireless.enable = mkDefault false;            # Most servers are ethernet?
-#        yubikey.enable = mkDefault false;
-#      };
+      hardware = {
+        bluetooth.enable = mkDefault false;
+        printing.enable = mkDefault false;            # My use case never involves a print server
+        raid.enable = mkDefault false;
+        scanning.enable = mkDefault false;
+        sound.enable = mkDefault false;
+        webcam.enable = mkDefault false;
+        wireless.enable = mkDefault false;            # Most servers are ethernet?
+        yubikey.enable = mkDefault false;
+      };
       network = {
         firewall.fail2ban.enable = mkDefault true;
         wired.enable = mkDefault true;

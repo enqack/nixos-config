@@ -81,10 +81,10 @@ in
               echo "Swap file $swapfile already exists, taking no action"
           else
               echo "Setting up swap file $swapfile"
-              ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
+              ${pkgs.coreutils}/bin/mkdir -p $(dirname $swapfile)
+              ${pkgs.coreutils}/bin/dd if=/dev/zero of=$swapfile bs=1M count=${builtins.toString cfg.size} status=progress
               ${pkgs.e2fsprogs}/bin/chattr +C "$swapfile"
               ${pkgs.btrfs-progs}/bin/btrfs property set "$swapfile" compression none
-              ${pkgs.coreutils}/bin/dd if=/dev/zero of=$swapfile bs=1M count=${builtins.toString cfg.size} status=progress
               ${pkgs.coreutils}chmod 0600 $swapfile
               ${pkgs.util-linux}/bin/mkswap $swapfile
           fi

@@ -39,21 +39,21 @@ in
 
           ];
         };
-#        swap = {
-#          enable = mkDefault true;
-#          type = mkDefault "partition";
-#        };
+        swap = {
+          enable = mkDefault true;
+          type = mkDefault "partition";
+        };
       };
-#      hardware = {
-#        bluetooth.enable = mkDefault false;
-#        printing.enable = mkDefault false;
-#        raid.enable = mkDefault false;
-#        scanning.enable = mkDefault false;
-#        sound.enable = mkDefault true;
-#        webcam.enable = mkDefault false;
-#        wireless.enable = mkDefault false;
-#        yubikey.enable = mkDefault false;
-#      };
+      hardware = {
+        bluetooth.enable = mkDefault false;
+        printing.enable = mkDefault false;
+        raid.enable = mkDefault false;
+        scanning.enable = mkDefault false;
+        sound.enable = mkDefault true;
+        webcam.enable = mkDefault false;
+        wireless.enable = mkDefault false;
+        yubikey.enable = mkDefault false;
+      };
       network = {
         firewall.fail2ban.enable = mkDefault false;
       };

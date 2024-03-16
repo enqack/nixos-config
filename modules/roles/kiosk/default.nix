@@ -94,20 +94,20 @@ in
 
           ];
         };
-#        swap = {
-#          enable = mkDefault false;
-#        };
+        swap = {
+          enable = mkDefault false;
+        };
       };
-#      hardware = {
-#        bluetooth.enable = mkDefault false;
-#        printing.enable = mkDefault false;
-#        raid.enable = mkDefault false;
-#        scanning.enable = mkDefault false;
-#        sound.enable = mkDefault false;
-#        webcam.enable = mkDefault true;
-#        wireless.enable = mkDefault true;
-#        yubikey.enable = mkDefault true;
-#      };
+      hardware = {
+        bluetooth.enable = mkDefault false;
+        printing.enable = mkDefault false;
+        raid.enable = mkDefault false;
+        scanning.enable = mkDefault false;
+        sound.enable = mkDefault false;
+        webcam.enable = mkDefault true;
+        wireless.enable = mkDefault true;
+        yubikey.enable = mkDefault true;
+      };
       network = {
         firewall.fail2ban.enable = mkDefault false;
       };
