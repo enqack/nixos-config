@@ -61,26 +61,26 @@ in
     #sim#fonts = {
         #  enable = mkDefault true;
         #};
-#        graphics = {
-#          enable = mkDefault true;
-#          acceleration = mkDefault true;
-#          backend = mkDefault "x";
-#          displayManager = {
-#            autoLogin = {
-#              enable = mkDefault true;
-#              user = "${kioskUsername}";
-#            };
-#            manager = mkIf (config.host.feature.graphics.backend == "x") "lightdm";
-#          };
-#          windowManager = mkMerge [
-#            (mkIf (config.host.feature.graphics.backend == "cage") {
-#              manager = "wayland";
-#            })
-#            (mkIf (config.host.feature.graphics.backend == "x") {
-#              manager = "openbox";
-#            })
-#          ];
-#        };
+        graphics = {
+          enable = mkDefault true;
+          acceleration = mkDefault true;
+          backend = mkDefault "x";
+          displayManager = {
+            autoLogin = {
+              enable = mkDefault true;
+              user = "${kioskUsername}";
+            };
+            manager = mkIf (config.host.feature.graphics.backend == "x") "lightdm";
+          };
+          windowManager = mkMerge [
+            (mkIf (config.host.feature.graphics.backend == "cage") {
+              manager = "wayland";
+            })
+            (mkIf (config.host.feature.graphics.backend == "x") {
+              manager = "openbox";
+            })
+          ];
+        };
         #powermanagement = {
         #  enable = mkDefault false;
         #};

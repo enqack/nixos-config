@@ -23,9 +23,9 @@ in
           efi.enable = mkDefault true;
           graphical.enable = mkDefault false;
         };
-    #sim#graphics = {
-        #  enable = mkDefault false;                   # Maybe if we were doing openCL
-        #};
+        graphics = {
+          enable = mkDefault false;                   # Maybe if we were doing openCL
+        };
         #powermanagement = {
         #  enable = mkDefault true;
         #};

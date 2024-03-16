@@ -31,9 +31,8 @@ in
           efi.enable = mkDefault true;
           graphical.enable = mkDefault false;
         };
-#        graphics = {
-#          enable = mkDefault false;                   # Maybe if we were doing openCL
-#        };
+        graphics = {
+          enable = mkDefault false;                   # Maybe if we were doing openCL
         };
       };
       filesystem = {

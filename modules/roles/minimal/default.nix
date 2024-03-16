@@ -18,10 +18,10 @@ in
         #fonts = {
         #  enable = mkDefault false;
         #};
-#        graphics = {
-#          enable = mkDefault false;
-#          acceleration = mkDefault true;
-#        };
+        graphics = {
+          enable = mkDefault false;
+          acceleration = mkDefault true;
+        };
       };
       filesystem = {
         btrfs.enable = mkDefault false;
