@@ -55,6 +55,9 @@
     feature = {
       home-manager.enable = mkDefault true;
     };
+    network = {
+      wired.enable = mkDefault true;
+    };
     service = {
       logrotate.enable = mkDefault true;
       ssh = {
@@ -87,9 +90,4 @@
   services.openssh.settings.PermitRootLogin = "yes";
 
   users.defaultUserShell = pkgs.zsh;
-
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
 }
