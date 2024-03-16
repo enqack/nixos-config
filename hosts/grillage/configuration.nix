@@ -13,6 +13,7 @@
   config = {
     nixpkgs.hostPlatform = "x86_64-linux";
     host = {
+      role = "server";
       network = {
         hostname = "grillage";
       };

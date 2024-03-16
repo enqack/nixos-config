@@ -61,6 +61,9 @@
     user = {
       sysop.enable = mkDefault true;
     };
+    filesystem = {
+      swap.type = mkDefault "file";
+    };
     feature = {
       home-manager.enable = mkDefault true;
     };
@@ -71,7 +74,7 @@
       logrotate.enable = mkDefault true;
       ssh = {
         enable = mkDefault true;
-        harden = mkDefault false;
+        harden = mkForce false;
       };
     };
   };
