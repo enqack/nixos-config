@@ -3,7 +3,7 @@
 {
   nix = {
     gc = {
-      automatic = lib.mkDefault true;
+      automatic = lib.mkDefault false;
       dates = lib.mkDefault "19:00";
       persistent = lib.mkDefault true;
       options = lib.mkDefault "--delete-older-than 10d";

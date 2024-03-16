@@ -6,24 +6,24 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f53e370d-fa61-4a04-889f-d61e47f14bc1";
+    { device = "/dev/disk/by-uuid/ee43c173-ad92-4d2a-8401-b06c89b69ca8";
       fsType = "btrfs";
       options = [ "subvol=@" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/8f27f6ea-2c48-466a-92c3-37c1c5f599ca";
+    { device = "/dev/disk/by-uuid/92c702e4-bb90-41ee-810b-45a8d0aba772";
       fsType = "btrfs";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/BBF6-34DA";
+    { device = "/dev/disk/by-uuid/4BCD-1ED0";
       fsType = "vfat";
     };
 

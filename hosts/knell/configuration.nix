@@ -5,12 +5,6 @@
 { lib, config, pkgs, ... }:
 
 {
-  options = {
-    hostname = lib.mkOption {
-      type = lib.types.string;
-    };
-  };
-
   imports = [
     ./hardware-configuration.nix
     ../common
@@ -19,8 +13,6 @@
   config = {
     networking = {
       hostName = "knell"; 
-      #wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-      networkmanager.enable = true;
     };
   };
 }
