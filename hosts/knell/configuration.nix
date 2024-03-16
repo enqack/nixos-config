@@ -13,7 +13,8 @@
 
   config = {
     nixpkgs.hostPlatform = "x86_64-linux";
-    host = {
+    host = { 
+      role = "server";
       network = {
         hostname = "knell"; 
       };
