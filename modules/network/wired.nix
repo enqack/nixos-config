@@ -71,7 +71,7 @@ in
     ];
 
     networking = {
-      useNetworkd = false;
+      useNetworkd = true;
     };
 
     systemd = {
@@ -90,8 +90,8 @@ in
              #  "1.0.0.1"
              #];
              #dns = mkIf (cfg.type == "static") [
-#
-             #] ++ cfg.dns ;
+             #
+	     #] ++ cfg.dns ;
              routes = mkIf (cfg.type == "static") [
                { routeConfig.Gateway =  cfg.gateway ; }
              ];

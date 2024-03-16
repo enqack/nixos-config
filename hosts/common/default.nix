@@ -8,19 +8,18 @@
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   boot = {
-    kernelParams = [ "nohibernate" ];
-    tmp.cleanOnBoot = true;
-    loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-      };
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
+    initrd = {
+      compressor = mkDefault "zstd";
+      compressorArgs = mkDefault ["-19"];
+
+      systemd = {
+        strip = mkDefault true;                         # Saves considerable space in initrd
       };
     };
+    kernel.sysctl = {
+      "vm.dirty_ratio" = mkDefault 6;                   # sync disk when buffer reach 6% of memory
+    };
+    # kernelPackages = pkgs.linuxPackages_latest;         # Latest kernel
   };
 
   console = {
@@ -66,7 +65,7 @@
       };
     };
   };
-  
+
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
