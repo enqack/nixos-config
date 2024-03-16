@@ -34,11 +34,7 @@ in
 #        graphics = {
 #          enable = mkDefault false;                   # Maybe if we were doing openCL
 #        };
-#        virtualization = {
-#          docker = {
-#            enable = mkDefault true;
-#          };
-#        };
+        };
       };
       filesystem = {
         btrfs.enable = mkDefault true;
