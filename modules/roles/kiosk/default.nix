@@ -159,9 +159,9 @@ in
           layout = "us";
           libinput.enable = mkForce true;
 
-          #windowManager = {
-          #  openbox.enable = mkForce true;
-          #};
+          windowManager = {
+            openbox.enable = mkForce true;
+          };
 
           #job.preStart = ''
           #  #!/bin/sh
