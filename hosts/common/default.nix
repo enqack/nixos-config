@@ -68,6 +68,7 @@
       home-manager.enable = mkDefault true;
     };
     network = {
+      domainname = mkDefault "local";
       wired.enable = mkDefault true;
     };
     service = {
