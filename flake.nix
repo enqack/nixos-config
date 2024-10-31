@@ -17,23 +17,37 @@
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
-      # Define your NixOS configuration for the "flex" system
-      flex = nixpkgs.lib.nixosSystem {
+      
+      reactor = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        # Import nixpkgs with the HyprPanel overlay applied
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
           overlays = [ hyprpanel.overlay ];
         };
 
-        # Define modules and add configuration.nix
         modules = [
-          ./configuration.nix
+          ./hosts/reactor/configuration.nix
           home-manager.nixosModules.home-manager
         ];
       };
+
+      flex = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        pkgs = import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+          overlays = [ hyprpanel.overlay ];
+        };
+
+        modules = [
+          ./hosts/flex/configuration.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
     };
   };
 }
