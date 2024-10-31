@@ -21,6 +21,7 @@ in
     blueman
     bluez
     calcurse
+    cmatrix
     cptv
     curl
     devenv
@@ -29,16 +30,17 @@ in
     entr
     exfatprogs
     exif
+    fastfetch
     firefox
     ftop
     fuzzel
     fuse2
     fzf
     git
+    gomatrix
     google-chrome
     gscreenshot
     home-manager
-    hyprpanel
     iftop
     iotop
     jq
@@ -87,6 +89,7 @@ in
     vscode
     wayland
     wayland-protocols
+    wezterm
     wget
     wl-clipboard
     wofi

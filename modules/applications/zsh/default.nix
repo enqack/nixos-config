@@ -16,9 +16,9 @@
       l  = "ls -CF";
 
       edit-system = "sudo vim /etc/nixos/hosts/$(hostname)/configuration.nix";
-      edit-home   = "vim ~/.config/nixos/home.nix";
+      edit-home   = "vim ~/.config/home-manager/home.nix";
       rebuild-system = "sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)";
-      rebuild-home   = "nix run home-manager/master -- switch --flake ~/.config/nixos";
+      rebuild-home   = "home-manager switch --flake ~/.config/home-manager";
     };
   };
 

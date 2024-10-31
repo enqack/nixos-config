@@ -139,6 +139,8 @@ bindkey -s '^o' 'lfcd\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo

@@ -18,6 +18,7 @@
     ../../config/system/auto-upgrade.nix
     ../../config/system/boot.nix
     ../../config/system/garbage-collection.nix
+    ../../config/system/issue.nix
     ../../config/system/time.nix
 
     ../../config/hardware/bluetooth.nix
@@ -26,6 +27,8 @@
 
     ../../config/ui/console.nix
     ../../config/ui/fonts.nix
+
+    ../../modules/users/skeleton
   ];
 
   networking = {
