@@ -11,6 +11,8 @@
     ../../config/base/users.nix
 
     ../../config/services/acpi.nix
+    ../../config/services/logind.nix
+    ../../config/services/nix-index.nix
     ../../config/services/plymouth.nix
     ../../config/services/ssh.nix
     ../../config/services/xserver.nix

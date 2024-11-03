@@ -1,0 +1,9 @@
+// Set up the background image
+wallpaper_image = Image("nixos-black-snowflake.png");
+wallpaper_image.SetZ(-100);
+
+// Center the image on the screen
+wallpaper_image.SetPosition("center", "center");
+
+// Draw the image
+wallpaper_image.Show();

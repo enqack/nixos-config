@@ -17,7 +17,7 @@
 
       edit-system = "sudo vim /etc/nixos/hosts/$(hostname)/configuration.nix";
       edit-home   = "vim ~/.config/home-manager/home.nix";
-      rebuild-system = "sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)";
+      rebuild-system = "sudo nixos-rebuild switch --flake $(readlink -f /etc/nixos)#$(hostname)";
       rebuild-home   = "home-manager switch --flake ~/.config/home-manager";
     };
   };

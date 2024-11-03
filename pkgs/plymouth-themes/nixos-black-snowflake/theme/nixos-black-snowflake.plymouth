@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=NixOS Black Snowflake
+Description=NixOS Black Snowflake Plymouth Theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/nixos-black-snowflake
+ScriptFile=/usr/share/plymouth/themes/nixos-black-snowflake/nixos-black-snowflake.script

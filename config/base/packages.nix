@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
-  nixosBlurTheme = import ../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
+  nixos-blur-theme = import ../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
+  nixos-black-snowflake-plymouth = import ../../pkgs/plymouth-themes/nixos-black-snowflake { pkgs = pkgs; };
   cptv = import ../../pkgs/cptv { pkgs = pkgs; };
 in
 {
@@ -21,7 +22,9 @@ in
     blueman
     bluez
     calcurse
+    cmake
     cmatrix
+    cpio
     cptv
     curl
     devenv
@@ -57,11 +60,15 @@ in
     lsof
     mc
     mesa
+    meson
     nemo
     netcat
+    nix-index
     nix-prefetch-git
     nixos-bgrt-plymouth
-    nixosBlurTheme
+    nixos-blur-theme
+    nixos-black-snowflake-plymouth
+    nixos-icons
     nmon
     openjdk
     pciutils
@@ -93,6 +100,7 @@ in
     wget
     wl-clipboard
     wofi
+    xorg.setxkbmap
     xorg.xcursorthemes
     xwayland
     zip
