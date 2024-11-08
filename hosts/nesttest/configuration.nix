@@ -1,8 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  networking = {
+    hostName = "nesttest";
+  };
+
   imports = [
     ./hardware-configuration.nix
+    ./disko-configuration.nix
 
     ../../config/base/env.nix
     ../../config/base/nix.nix
@@ -28,10 +33,6 @@
     ../../config/ui/console.nix
     ../../config/ui/fonts.nix
   ];
-
-  networking = {
-    hostName = "nesttest";
-  };
 
   # Additional configurations that don’t fit specific module
   system.stateVersion = "24.05";
