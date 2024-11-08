@@ -63,6 +63,21 @@
         ];
       };
 
+      nesttest = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        pkgs = import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+        };
+
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/nesttest/configuration.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
     };
   };
 }

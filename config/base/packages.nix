@@ -8,6 +8,7 @@ in
   imports = [
     ../../modules/applications/zsh
     ../../overlays/google-chrome
+    ../../overlays/vscode
   ];
 
   # List packages installed in system profile.
@@ -22,6 +23,7 @@ in
     blueman
     bluez
     calcurse
+    chafa
     cmake
     cmatrix
     cpio
@@ -48,10 +50,12 @@ in
     iotop
     jq
     killall
+    kitty
     krita
     lf
     libinput
     libnotify
+    libsixel
     libva
     libxkbcommon
     liquidctl
@@ -63,6 +67,7 @@ in
     meson
     nemo
     netcat
+    ninja
     nix-index
     nix-prefetch-git
     nixos-bgrt-plymouth
@@ -72,9 +77,12 @@ in
     nmon
     openjdk
     pciutils
+    perl538Packages.FileMimeInfo
     pipx
     power-profiles-daemon
     python312
+    python312Packages.dbus-python
+    python312Packages.notify2
     python312Packages.pip
     scrot
     slurp

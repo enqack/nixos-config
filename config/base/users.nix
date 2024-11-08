@@ -11,12 +11,6 @@
       extraGroups = [ "audio" "networkmanager" "wheel" ];
     };
 
-    users.enqack = {
-      isNormalUser = true;
-      description = "enqack";
-      extraGroups = [ "audio" "networkmanager" "wheel" ];
-    };
-
   };
 }
 
