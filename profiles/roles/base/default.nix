@@ -26,7 +26,7 @@
     ../../../config/ui/fonts.nix
   ];
 
-  # List packages installed in system profile.
+  # List packages installed in base profile.
   environment.systemPackages = with pkgs; [
     aspell
     at
@@ -90,4 +90,6 @@
     wget
     zip
   ];
+
+  system.stateVersion = "24.05";
 }
