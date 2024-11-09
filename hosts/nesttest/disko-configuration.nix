@@ -20,6 +20,16 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
+            boot = {
+              size = "1024M";
+              priority = 2;
+              content = {
+                extraArgs = [ "-f" ]; # Override existing partition
+                type = "filesystem";
+                format = "btrfs";
+                mountpoint = "/boot";
+              };
+            };
             primary = {
               size = "100%";
               content = {
@@ -38,19 +48,7 @@
           thinpool = {
             size = "64G";
             lvm_type = "thin-pool";
-            priority = 2;
-          };
-          boot = {
-            size = "1024M";
-            lvm_type = "thinlv";
-            pool = "thinpool";
             priority = 3;
-            content = {
-              extraArgs = [ "-f" ]; # Override existing partition
-              type = "filesystem";
-              format = "btrfs";
-              mountpoint = "/boot";
-            };
           };
           root = {
             size = "32G";
