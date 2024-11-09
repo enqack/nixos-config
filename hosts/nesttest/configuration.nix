@@ -7,7 +7,7 @@
 
   imports = [
     ./hardware-configuration.nix
-    ./disko-configuration.nix { device = "/dev/vda"; }
+    (import ./disko-configuration.nix { device = "/dev/vda"; })
 
     ../../config/base/env.nix
     ../../config/base/nix.nix
