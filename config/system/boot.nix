@@ -9,7 +9,7 @@
     grub.useOSProber = true;
     # grub.splashImage = "/home/sysop/nix-bootloader.png";
     efi.canTouchEfiVariables = true;
-    # efi.efiSysMountPoint = "/boot/EFI";
+    efi.efiSysMountPoint = "/boot/EFI";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;

@@ -4,6 +4,10 @@
 let
   installerTargetTTY = "tty6";
 
+  stablePkgs = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-24.09.tar.gz";
+  }) {};
+
   rootPassword = builtins.hashString "sha256" (toString builtins.currentTime);
   
   nixos-installer = pkgs.writeScriptBin "nixos-installer" ''
@@ -146,7 +150,7 @@ let
 in
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-base.nix>
+    stablePkgs.nixos/modules/installer/cd-dvd/installation-cd-base.nix
   ];
 
   isoImage = {
