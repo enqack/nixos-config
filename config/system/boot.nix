@@ -12,5 +12,8 @@
     efi.efiSysMountPoint = "/boot/efi";
   };
 
+  boot.initrd.services.lvm.enable = true;
+  services.lvm.boot.thin.enable = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }
