@@ -8,4 +8,9 @@
 
   boot.initrd.services.lvm.enable = true;
   services.lvm.boot.thin.enable = true;
+
+  boot.initrd.postDeviceCommands = ''
+    vgscan
+    vgchange -ay
+  '';
 }
