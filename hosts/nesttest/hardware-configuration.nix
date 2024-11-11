@@ -9,7 +9,7 @@
   boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "dm_mod" ];
   boot.initrd.kernelModules = [ "dm_mod" ];
   boot.initrd.supportedFilesystems = [ "btrfs" ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "dm_mod" ];
   boot.extraModulePackages = [ ];
 
   swapDevices = [ ];
