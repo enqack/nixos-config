@@ -241,7 +241,10 @@ in
   '';
   
   services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = true;
+  services.openssh.settings = {
+    PasswordAuthentication = true;
+    PermitTTY = true;
+  };
 
   networking.dhcpcd.enable = true;
   
@@ -273,7 +276,6 @@ in
     # Run garbage collection to clean up unused packages in the store (optional)
     nix-collect-garbage -d
   '';
-
 
   system.stateVersion = "24.05";
 }
