@@ -13,6 +13,7 @@
   };
 
   boot.initrd.systemd.enable = true;
+  boot.initrd.systemd.root = "gpt-auto";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }
