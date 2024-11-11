@@ -9,8 +9,14 @@
   boot.initrd.services.lvm.enable = true;
   services.lvm.boot.thin.enable = true;
 
-  boot.initrd.postDeviceCommands = ''
-    vgscan
-    vgchange -ay
-  '';
+  systemd.services."lvm-activate" = {
+    wantedBy = [ "initrd-root-device.target" ];
+    before = [ "initrd-root-fs.target" ];
+    serviceConfig = {
+      ExecStart = [
+        "${pkgs.lvm2}/bin/vgscan"
+        "${pkgs.lvm2}/bin/vgchange -ay"
+      ];
+    };
+  };
 }
