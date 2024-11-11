@@ -12,5 +12,7 @@
     efi.efiSysMountPoint = "/boot/efi";
   };
 
+  boot.initrd.systemd.enable = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }
