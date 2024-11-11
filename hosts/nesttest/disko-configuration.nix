@@ -45,16 +45,10 @@
       mainpool = {
         type = "lvm_vg";
         lvs = {
-          thinpool = {
-            size = "64G";
-            lvm_type = "thin-pool";
-            priority = 3;
-          };
           root = {
             size = "32G";
-            lvm_type = "thinlv";
-            pool = "thinpool";
-            priority = 4;
+            lvm_type = "lv";
+            priority = 3;
             content = {
               type = "filesystem";
               format = "btrfs";
@@ -65,10 +59,9 @@
             };
           };
           home = {
-            size = "24GB";
-            lvm_type = "thinlv";
-            pool = "thinpool";
-            priority = 5;
+            size = "24G";
+            lvm_type = "lv";
+            priority = 4;
             content = {
               type = "filesystem";
               format = "btrfs";
@@ -80,4 +73,3 @@
     };
   };
 }
-
