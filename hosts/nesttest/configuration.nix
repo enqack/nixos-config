@@ -11,5 +11,7 @@
 
     ../../profiles/roles/server
   ];
+
+  boot.initrd.systemd.emergencyAccess = true;
 }
 

@@ -206,6 +206,7 @@ in
     gawk
     inotify-tools
     iproute2
+    lvm2
     nix-prefetch-git
     nixos-install-tools
     nixos-installer
