@@ -99,6 +99,16 @@ bindkey "^[[8~" end-of-line
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
+# Check for a shell.nix file upon entering a directory
+autoload -U add-zsh-hook
+enter_shell_nix() {
+  if [[ -f shell.nix && ! $IN_NIX_SHELL ]]; then
+    echo "Entering nix-shell environment..."
+    nix-shell
+  fi
+}
+add-zsh-hook chpwd enter_shell_nix
+
 # Change cursor shape for different vi modes
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||

@@ -13,7 +13,7 @@ in
       ExecStart = [ "${pkgs.coreutils}/bin/nice -n 19 ${pkgs.nix-index}/bin/nix-index" ];
       MemoryMax = "6G";                  # Limit memory usage to 4GB
       CPUQuota = "50%";                  # Limit CPU usage to 50%
-      IOSchedulingClass = "beste-ffort";
+      IOSchedulingClass = "best-effort";
       IOSchedulingPriority = "4";
     };
   };

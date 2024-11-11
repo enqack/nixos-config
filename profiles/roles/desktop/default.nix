@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-  nixos-blur-theme = import ../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
-  nixos-black-snowflake-plymouth = import ../../pkgs/plymouth-themes/nixos-black-snowflake { pkgs = pkgs; };
-  cptv = import ../../pkgs/cptv { pkgs = pkgs; };
+  nixos-blur-theme = import ../../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
+  nixos-black-snowflake-plymouth = import ../../../pkgs/plymouth-themes/nixos-black-snowflake { pkgs = pkgs; };
+  cptv = import ../../../pkgs/cptv { pkgs = pkgs; };
 in
 {
   imports = [
@@ -11,6 +11,10 @@ in
 
     ../../../config/services/plymouth.nix
     ../../../config/services/xserver.nix
+
+    ../../../config/hardware/graphics.nix
+    ../../../config/hardware/bluetooth.nix
+    ../../../config/hardware/sound.nix
 
     ../../../overlays/google-chrome
     ../../../overlays/vscode
@@ -50,6 +54,7 @@ in
     vscode
     wayland
     wayland-protocols
+    wayland-utils
     wezterm
     wl-clipboard
     wofi

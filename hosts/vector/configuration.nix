@@ -2,7 +2,7 @@
 
 {
   networking = {
-    hostName = "flex";
+    hostName = "vector";
   };
 
   imports = [
@@ -10,15 +10,9 @@
     # (import ./disko-configuration.nix { device = "/dev/sda"; })
 
     ../../profiles/roles/laptop
+    ../../profiles/roles/workstation
   ];
 
-  virtualisation.containers.enable = true;
-
-  services.xserver.videoDrivers = [ "intel" ];
-
-  nix.settings = {
-    max-jobs = 1;
-    cores = 1;
-  };
+  services.xserver.videoDrivers = [ "nvidia" ];
 }
 

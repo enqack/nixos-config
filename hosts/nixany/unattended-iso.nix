@@ -4,9 +4,9 @@
 let
   installerTargetTTY = "tty6";
 
-  stablePkgs = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-24.09.tar.gz";
-  }) {};
+  # stablePkgs = import (builtins.fetchTarball {
+  #   url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/24.05.tar.gz";
+  # }) {};
 
   rootPassword = builtins.hashString "sha256" (toString builtins.currentTime);
   
@@ -117,7 +117,7 @@ let
         color_print("Installing the system...", YELLOW)
         install_cmd = [
             "nixos-install", "--no-channel-copy", "--no-root-password",
-            "--option", "substituters", ""
+            "--option", "substituters", "file:///binary-cache"
         ]
         try:
             run_command(install_cmd)
@@ -150,7 +150,8 @@ let
 in
 {
   imports = [
-    stablePkgs.nixos/modules/installer/cd-dvd/installation-cd-base.nix
+    # "${stablePkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-base.nix>
   ];
 
   isoImage = {
@@ -202,7 +203,10 @@ in
     gnugrep
     gparted
     grub2_efi
+    gawk
     inotify-tools
+    iproute2
+    nix-prefetch-git
     nixos-install-tools
     nixos-installer
     parted
@@ -254,14 +258,22 @@ in
   services.getty.autologinUser = lib.mkForce "sysop";
 
   system.activationScripts.ensurePackagesCached = lib.mkForce ''
-    # Cache all packages in systemPackages
+    # Define the path for the binary cache directory on the ISO
+    CACHE_DIR="/binary-cache"
+
+    # Create the binary cache directory
+    mkdir -p "$CACHE_DIR"
+
+    # Cache all packages in systemPackages and copy them to the binary cache directory
     for pkg in ${lib.concatStringsSep " " (map (pkg: "${pkg}") config.environment.systemPackages)}; do
-      nix-store -r "$pkg"
+      nix-store -r "$pkg"  # Ensure the package is in the store
+      nix copy --to "file://$CACHE_DIR" "$pkg"  # Copy package closure to binary cache
     done
 
-    # Run garbage collection to clean up unused packages
+    # Run garbage collection to clean up unused packages in the store (optional)
     nix-collect-garbage -d
   '';
+
 
   system.stateVersion = "24.05";
 }

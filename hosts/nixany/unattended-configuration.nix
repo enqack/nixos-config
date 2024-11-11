@@ -29,6 +29,7 @@ in
   nix = {
     package = pkgs.nixVersions.stable;
     settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.substituters = [ "file:///binary-cache" ];
   };
 
   # Set default hostname
@@ -82,8 +83,10 @@ in
     gawk
     inotify-tools
     iproute2
+    nix-prefetch-git
     nixos-install-tools
     parted
+    python3
     tmux
     vim
     util-linux

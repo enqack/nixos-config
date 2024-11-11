@@ -91,5 +91,5 @@
     zip
   ];
 
-  system.stateVersion = "24.09";
+  system.stateVersion = "24.05";
 }
