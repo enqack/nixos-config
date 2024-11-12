@@ -13,5 +13,6 @@
   ];
 
   boot.initrd.systemd.emergencyAccess = true;
+  #systemd.services."emergency".serviceConfig.ExecStart = [ "/usr/lib/systemd/systemd-sulogin-shell emergency" ];
 }
 
