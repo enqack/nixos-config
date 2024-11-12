@@ -11,5 +11,5 @@
   # boot.initrd.systemd.extraBin = {
   #   lvm = "${pkgs.lvm2}/bin/lvm";
   # };
-  boot.kernelParams = [ "systemd.log_level=debug" "systemd.log_target=console" ]
+  boot.kernelParams = [ "systemd.log_level=debug" "systemd.log_target=console" ];
 }
