@@ -47,7 +47,6 @@
         lvs = {
           root = {
             size = "32G";
-            lvm_type = "lv";
             priority = 3;
             content = {
               type = "filesystem";
@@ -60,7 +59,6 @@
           };
           home = {
             size = "24G";
-            lvm_type = "lv";
             priority = 4;
             content = {
               type = "filesystem";
