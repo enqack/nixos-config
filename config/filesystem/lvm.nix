@@ -2,7 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    device-mapper
     lvm2
     mdadm
   ];
