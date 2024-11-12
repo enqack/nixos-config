@@ -151,7 +151,8 @@ in
 {
   imports = [
     # "${stablePkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-base.nix>
+    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
+    <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
   ];
 
   isoImage = {
@@ -160,6 +161,9 @@ in
     makeUsbBootable = true;
     squashfsCompression = "zstd -Xcompression-level 14"; # Faster compression
   };
+
+  system.nixos.variant_id = lib.mkDefault "installer";
+
 
   nix = {
     settings.experimental-features = [ "nix-command" "flakes" ];

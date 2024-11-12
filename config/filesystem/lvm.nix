@@ -11,7 +11,7 @@
 
   systemd.services."lvm-activate-stage2" = {
     description = "Activate LVM Pools in Stage Two";
-    wants = [ "local-fs.target" ];
+    wants = [ "basic.target" ];
     before = [ "local-fs.target" ];
     after = [ "systemd-remount-fs.service" ];
     serviceConfig = {
@@ -20,4 +20,5 @@
       RemainAfterExit = true;
     };
   };
+
 }
