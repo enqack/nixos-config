@@ -14,8 +14,7 @@
     wants = [ "initrd-root-device.target" ];
     before = [ "initrd-root-device.target" ];
     serviceConfig = {
-      ExecStartPre = "${pkgs.kmod}/bin/modprobe dm_mod";
-      ExecStartPre = "/bin/sleep 2";  # Short delay
+      ExecStartPre = "${pkgs.kmod}/bin/modprobe dm_mod && /bin/sleep 2";
       ExecStart = "${pkgs.lvm2}/bin/lvm vgchange -ay mainpool";
       RemainAfterExit = true;
     };
