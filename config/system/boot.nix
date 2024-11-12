@@ -15,6 +15,10 @@
   boot.initrd.systemd.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  boot.initrd.systemd.initrdBin = {
+    grep = "${pkgs.gnugrep}/bin/grep";
+  };
 
   # Kernel sysctl parameters
   boot.kernel.sysctl = {
