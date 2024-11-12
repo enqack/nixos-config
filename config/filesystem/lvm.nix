@@ -2,22 +2,12 @@
 
 {
   environment.systemPackages = with pkgs; [
+    device-mapper
     lvm2
     mdadm
   ];
 
   services.lvm.enable = true;
   boot.initrd.services.lvm.enable = true;
-
-  boot.initrd.systemd.services."lvm-activate-initrd" = {
-    description = "Activate LVM Pools in Initrd";
-    wants = [ "initrd-root-device.target" ];
-    before = [ "initrd-root-device.target" ];
-    serviceConfig = {
-      ExecStartPre = "${pkgs.kmod}/bin/modprobe dm_mod && /bin/sleep 2";
-      ExecStart = "${pkgs.lvm2}/bin/lvm vgchange -ay mainpool";
-      RemainAfterExit = true;
-    };
-  };
-
+  boot.initrd.extraUtils = [ pkgs.lvm2 ];
 }
