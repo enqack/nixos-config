@@ -16,9 +16,9 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   
-  boot.initrd.systemd.initrdBin = {
-    grep = "${pkgs.gnugrep}/bin/grep";
-  };
+  boot.initrd.systemd.initrdBin = [
+    pkgs.gnugrep
+  ];
 
   # Kernel sysctl parameters
   boot.kernel.sysctl = {
