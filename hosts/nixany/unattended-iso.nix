@@ -161,6 +161,13 @@ in
     squashfsCompression = "zstd -Xcompression-level 14"; # Faster compression
   };
 
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.substituters = [
+      "file:///binary-cache" "http://192.168.10.20:5000" "https://cache.nixos.org"
+    ];
+  };
+
   environment.etc."issue" = {
     text = ''
 

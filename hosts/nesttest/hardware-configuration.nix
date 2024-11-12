@@ -6,10 +6,10 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "dm_mod" ];
-  boot.initrd.kernelModules = [ "dm_mod" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "dm_mod" "dm" ];
+  boot.initrd.kernelModules = [ "dm_mod" "dm" ];
   boot.initrd.supportedFilesystems = [ "btrfs" ];
-  boot.kernelModules = [ "dm_mod" ];
+  boot.kernelModules = [ "dm_mod" "dm" ];
   boot.extraModulePackages = [ ];
 
   swapDevices = [ ];
