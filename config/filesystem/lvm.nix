@@ -16,7 +16,7 @@
     serviceConfig = {
       ExecStartPre = "${pkgs.kmod}/bin/modprobe dm_mod";
       ExecStartPre = "/bin/sleep 2";  # Short delay
-      ExecStart = "${pkgs.lvm2}/bin/lvm vgchange -ay main-pool";
+      ExecStart = "${pkgs.lvm2}/bin/lvm vgchange -ay mainpool";
       RemainAfterExit = true;
     };
   };
