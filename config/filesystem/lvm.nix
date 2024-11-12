@@ -6,6 +6,5 @@
     mdadm
   ];
 
-  boot.initrd.lvm.enable = true;
   boot.initrd.services.lvm.enable = true;
 }
