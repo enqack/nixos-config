@@ -12,6 +12,7 @@
     ../../profiles/roles/server
   ];
 
+  boot.kernelParams = [ "rd.auto" "root=/dev/mainpool/root" ];
   boot.initrd.systemd.emergencyAccess = true;
 }
 
