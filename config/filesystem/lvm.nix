@@ -8,7 +8,5 @@
 
   services.lvm.enable = true;
   boot.initrd.services.lvm.enable = true;
-  # boot.initrd.systemd.extraBin = {
-  #   lvm = "${pkgs.lvm2}/bin/lvm";
-  # };
+  boot.initrd.preLVMCommands = "lvm vgchange -ay";
 }
