@@ -9,13 +9,15 @@
   services.lvm.enable = true;
   boot.initrd.services.lvm.enable = true;
 
-  boot.initrd.systemd.services.lvm-activate = {
-    description = "Activate LVM Pools";
-    wants = [ "local-fs-pre.target" ];
-    before = [ "local-fs-pre.target" ];
+  systemd.services."lvm-activate-stage2" = {
+    description = "Activate LVM Pools in Stage Two";
+    wants = [ "local-fs.target" ];
+    before = [ "local-fs.target" ];
+    after = [ "systemd-remount-fs.service" ];
     serviceConfig = {
       ExecStartPre = "${pkgs.kmod}/bin/modprobe dm_mod";
       ExecStart = "${pkgs.lvm2}/bin/lvm vgchange -ay";
+      RemainAfterExit = true;
     };
   };
 }
