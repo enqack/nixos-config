@@ -4,6 +4,7 @@
   imports = [
     ../../../modules/applications/zsh
 
+    ../../../config/base/config-fetch.nix
     ../../../config/base/env.nix
     ../../../config/base/nix.nix
     ../../../config/base/networking.nix
