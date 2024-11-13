@@ -9,7 +9,7 @@ in
     text = ''
       # Check if the system is already configured
       if [ -f /etc/nixos/.config-fetched ]; then
-        echo "System configuration already fetched. Exiting."
+        echo "System configuration already fetched."
         exit 0
       fi
 
