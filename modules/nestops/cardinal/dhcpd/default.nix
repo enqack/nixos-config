@@ -15,7 +15,7 @@
       wantedBy = [ "multi-user.target" ];
       enable = true;
       serviceConfig = {
-        Environment = "POD_NAME=${config.services.name}";
+        Environment = "POD_NAME=nestops-cardinal-dhcpd";
         ExecStartPre = ''
           /bin/sh -c '[ "$(podman pod exists "$POD_NAME" && echo true || echo false)" = "true" ]'
         '';
