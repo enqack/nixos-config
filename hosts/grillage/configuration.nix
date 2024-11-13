@@ -10,6 +10,8 @@
     (import ./disko-configuration.nix { device = "/dev/sda"; })
 
     ../../profiles/roles/server
+
+    ../../modules/nestops/cardinal/dhcpd
   ];
 
   systemd.network.networks."10-enp" = {
@@ -19,6 +21,8 @@
       Gateway = "192.168.10.1";
       DNS = [ "192.168.10.1" "1.1.1.1" "8.8.8.8" ];
     };
-  };  
+  };
+
+  nestops.cardinal.dhcpd = true;  
 }
 

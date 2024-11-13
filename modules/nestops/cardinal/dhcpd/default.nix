@@ -15,8 +15,9 @@
       wantedBy = [ "multi-user.target" ];
       enable = true;
       serviceConfig = {
-        ExecStartPre = [  ];
-        ExecStart = [ "podman" "run" "-d" "-p" "67:67" "nestops-cardinal-dhcpd" ];
+        Environment = "POD_NAME=nestops-cardinal-dhcpd";
+        ExecStartPre = /bin/sh -c '[ "$(podman pod exists "$POD_NAME" && echo true || echo false)" = "true" ]';
+        ExecStart = [ "podman" "run" "-d" "-p" "67:67" $POD_NAME ];
       };
     };
   };

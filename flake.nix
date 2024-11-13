@@ -81,6 +81,36 @@
         ];
       };
 
+      knell = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/knell/configuration.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
+      grillage = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/grillage/configuration.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
     };
   };
 }
