@@ -5,7 +5,7 @@ let
 in
 {
   # Define an activation script to run once per machine
-  system.activationScripts.initialSetup = {
+  system.activationScripts.configFetch = {
     text = ''
       # Check if the system is already configured
       if [ -f /etc/nixos/.config-fetched ]; then
