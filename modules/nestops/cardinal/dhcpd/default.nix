@@ -15,7 +15,7 @@
       wantedBy = [ "multi-user.target" ];
       enable = true;
       serviceConfig = {
-        Environment = "POD_NAME=${config.services.POD_NAME}";
+        Environment = "POD_NAME=${config.services.name}";
         ExecStartPre = ''
           /bin/sh -c '[ "$(podman pod exists "$POD_NAME" && echo true || echo false)" = "true" ]'
         '';
