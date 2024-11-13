@@ -9,19 +9,19 @@ in
     text = ''
       # Check if the system is already configured
       if [ -f /etc/nixos/.config-fetched ]; then
-        echo "System already configured. Exiting."
+        echo "System configuration already fetched. Exiting."
         exit 0
       fi
 
       # Check if NixOS configuration exists
       if [ ! -d /etc/nixos ] || [ -z "$(ls -A /etc/nixos)" ]; then
-        ${pkgs.git}/bin/git clone ${config-repo} /home/${config-user}/.config/nixos
-        ${pkgs.coreutils}/bin/ln -s /home/${config-user}/.config/nixos /etc/nixos
+        ${pkgs.git}/bin/git clone ${config-repo} /home/${config-user}/.config/nixos || true
+        ${pkgs.coreutils}/bin/ln -s /home/${config-user}/.config/nixos /etc/nixos || ture
       fi
 
       # Mark as configured
       touch /etc/nixos/.config-fetched
-      echo "Configuration downloaded and marked as complete. Please run nixos-rebuild manually."
+      echo "System configuration downloaded and marked as complete. Please run nixos-rebuild manually."
     '';
   };
 }
