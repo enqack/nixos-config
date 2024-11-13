@@ -23,6 +23,6 @@
     };
   };
 
-  nestops.cardinal.dhcpd = true;  
+  nestops.cardinal.dhcpd.enable = true;  
 }
 
