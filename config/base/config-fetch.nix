@@ -15,8 +15,8 @@ in
 
       # Check if NixOS configuration exists
       if [ ! -d /etc/nixos ] || [ -z "$(ls -A /etc/nixos)" ]; then
-        git clone ${config-repo} /home/${config-user}/.config/nixos
-        ln -s /home/${config-user}/.config/nixos /etc/nixos
+        ${pkgs.git}/bin/git clone ${config-repo} /home/${config-user}/.config/nixos
+        ${pkgs.coreutils}/bin/ln -s /home/${config-user}/.config/nixos /etc/nixos
       fi
 
       # Mark as configured
