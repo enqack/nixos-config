@@ -1,4 +1,4 @@
-{ config, pkgs, disko, ... }:
+{ config, pkgs, lib, disko, ... }:
 
 {
   networking = {
