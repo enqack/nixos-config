@@ -50,6 +50,7 @@
     fzf
     git
     home-manager
+    htop
     iftop
     iotop
     jq
