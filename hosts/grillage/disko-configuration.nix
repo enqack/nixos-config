@@ -58,7 +58,7 @@
             };
           };
           home = {
-            size = "128G";
+            size = "64G";
             priority = 4;
             content = {
               type = "filesystem";
