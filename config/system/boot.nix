@@ -13,11 +13,12 @@
   };
 
   boot.initrd.systemd.enable = true;
+  boot.kernelParams = [ "rd.systemd.log_level=debug" "rd.systemd.log_target=console" ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   
   boot.initrd.systemd.initrdBin = [
-    pkgs.gnugrep
+    pkgs.busybox
   ];
 
   # Kernel sysctl parameters

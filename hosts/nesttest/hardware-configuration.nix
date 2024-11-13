@@ -6,7 +6,7 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "dm_mod" "dm_snapshot" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "dm_mod" "dm_snapshot" "virtio_pci" "virtio_blk" ];
   boot.initrd.kernelModules = [ "dm_mod" "dm_snapshot" ];
   boot.initrd.supportedFilesystems = [ "btrfs" ];
   boot.kernelModules = [ "dm_mod" "dm_snapshot" ];

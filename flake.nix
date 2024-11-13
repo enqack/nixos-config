@@ -66,10 +66,10 @@
         ];
       };
 
-      nesttest = nixpkgs-unstable.lib.nixosSystem {
+      nesttest = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        pkgs = import nixpkgs-unstable {
+        pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
