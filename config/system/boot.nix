@@ -13,7 +13,6 @@
   };
 
   boot.initrd.systemd.enable = true;
-  boot.kernelParams = [ "rd.systemd.log_level=debug" "rd.systemd.log_target=console" ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   

@@ -10,6 +10,7 @@
     (import ./disko-configuration.nix { device = "/dev/vda"; })
 
     ../../profiles/roles/server
+    ../../profiles/hardware/vm-guest
   ];
 
   boot.initrd.systemd.emergencyAccess = true;
