@@ -15,6 +15,7 @@ in
 
       echo "Initializing nix channel. Adding: ${channel-url} to ${channel-name}"
       ${pkgs.nix}/bin/nix-channel --add ${channel-url} ${channel-name}
+      ${pkgs.nix}/bin/nix-channel --update
 
       # Mark as configured
       touch /etc/nixos/.channel-initialized
