@@ -1,4 +1,4 @@
-{ device ? "/dev/sda", lib, ... }:
+{ device ? "/dev/sda", ... }:
 
 {
   disko.devices = {
@@ -20,6 +20,16 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
+            boot = {
+              size = "1024M";
+              priority = 2;
+              content = {
+                extraArgs = [ "-f" ]; # Override existing partition
+                type = "filesystem";
+                format = "btrfs";
+                mountpoint = "/boot";
+              };
+            };
             primary = {
               size = "100%";
               content = {
@@ -35,28 +45,9 @@
       mainpool = {
         type = "lvm_vg";
         lvs = {
-          thinpool = {
-            size = "256G";
-            lvm_type = "thin-pool";
-            priority = 2;
-          };
-          boot = {
-            size = "1024M";
-            lvm_type = "thinlv";
-            pool = "thinpool";
-            priority = 3;
-            content = {
-              extraArgs = [ "-f" ]; # Override existing partition
-              type = "filesystem";
-              format = "btrfs";
-              mountpoint = "/boot";
-            };
-          };
           root = {
-            size = "64G";
-            lvm_type = "thinlv";
-            pool = "thinpool";
-            priority = 4;
+            size = "128G";
+            priority = 3;
             content = {
               type = "filesystem";
               format = "btrfs";
@@ -67,10 +58,8 @@
             };
           };
           home = {
-            size = "128GB";
-            lvm_type = "thinlv";
-            pool = "thinpool";
-            priority = 5;
+            size = "128G";
+            priority = 4;
             content = {
               type = "filesystem";
               format = "btrfs";
@@ -82,4 +71,3 @@
     };
   };
 }
-
