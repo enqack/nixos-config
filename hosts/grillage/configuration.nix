@@ -12,6 +12,7 @@
     ../../profiles/roles/server
 
     ../../modules/nestops/cardinal/dhcpd
+    ../../modules/nestops/cardinal/dns
   ];
 
   systemd.network.networks."10-enp" = {
