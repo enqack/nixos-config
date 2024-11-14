@@ -21,8 +21,8 @@
     system = "x86_64-linux";
     lib = nixpkgs.lib;
 
-    # Load the JSON file with host definitions
-    hosts = builtins.fromJSON (builtins.readFile ./hosts.json);
+    # Load the nix file with host definitions
+    hosts = import ./hosts.nix;
 
     # Validation function to ensure each host has the correct fields
     isValidHost = host:
@@ -66,6 +66,7 @@
         disko.nixosModules.disko
         (./hosts/${host.name}/configuration.nix)
         home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
       ] ++ host.extraModules;
     };
 
