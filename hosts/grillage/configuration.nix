@@ -25,6 +25,7 @@
     };
   };
 
-  nestops.cardinal.dhcpd.enable = true;  
+  nestops.cardinal.dhcpd.enable = true;
+  nestops.cardinal.dns.enable = true;  
 }
 
