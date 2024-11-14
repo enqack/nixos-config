@@ -19,7 +19,7 @@
         ExecStartPre = ''
           /bin/sh -c '[ "$(podman pod exists "$POD_NAME" && echo true || echo false)" = "true" ]'
         '';
-        ExecStart = [ "podman run -d -p 67:67 $POD_NAME" ];
+        ExecStart = "podman run -d -p 67:67 $POD_NAME";
       };
     };
 
