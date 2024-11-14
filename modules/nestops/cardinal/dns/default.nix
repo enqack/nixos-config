@@ -17,7 +17,7 @@
       serviceConfig = {
         Environment = "POD_NAME=nestops-cardinal-dns";
         ExecStartPre = "-${pkgs.podman}/bin/podman pod exists $POD_NAME";
-        ExecStart = "-${pkgs.podman}/bin/podman run -d -p 67:67 $POD_NAME";
+        ExecStart = "-${pkgs.podman}/bin/podman run -d -p 53:53 $POD_NAME";
       };
     };
 
