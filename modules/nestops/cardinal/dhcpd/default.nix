@@ -17,9 +17,11 @@
       serviceConfig = {
         Environment = "POD_NAME=nestops-cardinal-dhcpd";
         ExecStartPre = ''
-          /bin/sh -c '[ "$(podman pod exists "$POD_NAME" && echo true || echo false)" = "true" ]'
+          ${pkgs.bash}/bin/bash -c '[ "$(${pkgs.podman}/bin/podman pod exists "$POD_NAME" && echo true || echo false)" = "true" ]'
         '';
-        ExecStart = ''podman run -d -p 67:67 $POD_NAME'';
+        ExecStart = ''
+          ${pkgs.bash}/bin/bash -c '${pkgs.podman}/bin/podman run -d -p 67:67 $POD_NAME'
+        '';
       };
     };
 
