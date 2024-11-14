@@ -21,15 +21,30 @@
     system = "x86_64-linux";
     lib = nixpkgs.lib;
 
-    # List of host definitions with extra modules
-    hosts = [
-      { name = "reactor"; extraModules = []; }
-      { name = "flex"; extraModules = []; }
-      { name = "nixany"; extraModules = []; }
-      { name = "nesttest"; extraModules = []; }
-      { name = "knell"; extraModules = []; }
-      { name = "grillage"; extraModules = [ sops-nix.nixosModules.sops ]; }
+    # Load the JSON file with host definitions
+    hosts = builtins.fromJSON (builtins.readFile ./hosts.json);
+
+    # Validation function to ensure each host has the correct fields
+    isValidHost = host:
+      lib.isAttrs host &&
+      lib.hasAttr "name" host && lib.isString host.name &&
+      lib.hasAttr "extraModules" host && lib.isList host.extraModules &&
+      lib.hasAttr "critical" host && lib.isBool host.critical;
+
+    # Filter out invalid hosts and keep only valid ones
+    validHosts = lib.filter isValidHost hosts;
+
+    # Define fallback hosts for any missing critical hosts
+    fallbackHosts = [
+      { name = "flex"; extraModules = []; critical = true; }
+      { name = "reactor"; extraModules = []; critical = true; }
+      { name = "vector"; extraModules = []; critical = true; }
     ];
+
+    # Combine valid hosts with fallback critical hosts (only if missing)
+    allHosts = lib.concatMap (host:
+      if lib.any (h: h.name == host.name) validHosts then [] else [host]
+    ) fallbackHosts ++ validHosts;
 
     # Function to find the index of an element by name
     findIndex = name: list:
@@ -37,7 +52,6 @@
         names = map (h: h.name) list;
       in
         builtins.elemAt (builtins.filter (i: builtins.elemAt names i == name) (lib.range 0 (builtins.length names - 1))) 0;
-
 
     # Function to generate each host configuration
     mkHost = host: lib.nixosSystem {
@@ -58,9 +72,9 @@
   in {
     # Generate host configurations from `hosts` list
     nixosConfigurations = lib.genAttrs 
-      (map (h: h.name) hosts) 
+      (map (h: h.name) allHosts) 
       (hostName: mkHost 
-        (builtins.elemAt hosts (findIndex hostName hosts))
+        (builtins.elemAt allHosts (findIndex hostName allHosts))
       );
   };
 }
