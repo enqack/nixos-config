@@ -1,4 +1,4 @@
-{ config, pkgs, disko, ... }:
+{ config, pkgs, lib, disko, ... }:
 
 {
   networking = {
@@ -20,5 +20,12 @@
     max-jobs = 1;
     cores = 1;
   };
+
+  boot.kernelParams = [
+    "rd.systemd.log_level=debug"
+    "rd.debug"
+  ];
+
+  boot.initrd.systemd.emergencyAccess = true;
 }
 

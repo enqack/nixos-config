@@ -9,12 +9,12 @@ in
     # base profile
     ../base
 
-    ../../../config/services/plymouth.nix
-    ../../../config/services/xserver.nix
-
     ../../../config/hardware/graphics.nix
     ../../../config/hardware/bluetooth.nix
     ../../../config/hardware/sound.nix
+    
+    ../../../config/services/plymouth.nix
+    ../../../config/services/xserver.nix
 
     ../../../overlays/google-chrome
     ../../../overlays/vscode

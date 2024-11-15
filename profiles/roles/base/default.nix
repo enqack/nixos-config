@@ -7,9 +7,11 @@
     ../../../config/base/channel-init.nix
     ../../../config/base/config-fetch.nix
     ../../../config/base/env.nix
-    ../../../config/base/nix.nix
     ../../../config/base/networking.nix
+    ../../../config/base/nix.nix
     ../../../config/base/users.nix
+
+    ../../../config/filesystem/lvm.nix
 
     ../../../config/services/acpi.nix
     ../../../config/services/logind.nix
@@ -22,8 +24,6 @@
     ../../../config/system/issue.nix
     ../../../config/system/time.nix
 
-    ../../../config/filesystem/lvm.nix
-
     ../../../config/ui/console.nix
     ../../../config/ui/fonts.nix
   ];
@@ -35,14 +35,21 @@
     atop
     bash
     bat
+    btrfs-progs
     chafa
     cmake
     cpio
+    cryptsetup
     curl
     devenv
     dnstop
+    dosfstools
     ed
     entr
+    e2fsprogs
+    efibootmgr
+    efitools
+    efivar
     exfatprogs
     exif
     fastfetch
@@ -71,6 +78,7 @@
     nix-prefetch-git
     nmon
     openjdk
+    parted
     pciutils
     perl538Packages.FileMimeInfo
     pipx
