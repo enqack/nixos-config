@@ -43,8 +43,9 @@ function calc_exec_time() {
 
 nix_auto_shell() {
   if [[ -f shell.nix || -f default.nix ]]; then
-    echo "\u2728 Entering nix-shell for $(pwd)... \u2728"
-    nice -19 nix-shell --command "echo 'Leaving nix-shell for $(pwd). Back to you reqularly scheduled shell \u26a1'"
+    echo "\u2728 Entering nix-shell... \u2728"
+    nice -19 nix-shell 
+    echo "Welcome to nix-shell for $(pwd) \u26a1"
   fi
 }
 
