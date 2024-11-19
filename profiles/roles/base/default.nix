@@ -15,7 +15,7 @@
 
     ../../../config/services/acpi.nix
     ../../../config/services/logind.nix
-    ../../../config/services/nix-index.nix
+    #../../../config/services/nix-index.nix
     ../../../config/services/ssh.nix
 
     ../../../config/system/auto-upgrade.nix
@@ -78,6 +78,7 @@
     nix-prefetch-git
     nmon
     openjdk
+    openssh
     parted
     pciutils
     perl538Packages.FileMimeInfo
@@ -85,8 +86,11 @@
     power-profiles-daemon
     python312
     python312Packages.dbus-python
+    #python312Packages.jinja2
     python312Packages.notify2
     python312Packages.pip
+    python312Packages.sphinx
+    sphinx
     sshfs
     stow
     sysstat

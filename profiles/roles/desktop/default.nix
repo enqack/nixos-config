@@ -40,7 +40,7 @@ in
     libxkbcommon
     liquidctl
     mesa
-    nemo
+    #nemo
     nixos-bgrt-plymouth
     nixos-blur-theme
     nixos-black-snowflake-plymouth

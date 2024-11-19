@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  hardware.graphics = {
+  hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl ];
   };

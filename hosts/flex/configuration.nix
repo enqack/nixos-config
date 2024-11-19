@@ -12,6 +12,8 @@
     ../../profiles/roles/laptop
   ];
 
+  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot";
+
   virtualisation.containers.enable = true;
 
   services.xserver.videoDrivers = [ "intel" ];
@@ -26,6 +28,6 @@
     "rd.debug"
   ];
 
-  boot.initrd.systemd.emergencyAccess = true;
+  # boot.initrd.systemd.emergencyAccess = true;
 }
 

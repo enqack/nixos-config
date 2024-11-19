@@ -2,11 +2,11 @@
   description = "NixOS configuration for NestOps";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager?ref=release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     
     disko.url = "github:nix-community/disko";
@@ -16,7 +16,7 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, disko, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix }:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;

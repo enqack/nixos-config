@@ -1,11 +1,3 @@
-#  _____    _
-# |__  /___| |__  _ __ ___
-#   / // __| '_ \| '__/ __|
-#  / /_\__ \ | | | | | (__
-# /____|___/_| |_|_|  \___|
-#
-
-
 # Enable colors
 autoload -U colors && colors
 export TERM="xterm-256color"
@@ -49,9 +41,19 @@ function calc_exec_time() {
   fi
 }
 
+nix_auto_shell() {
+  if [[ -f shell.nix || -f default.nix ]]; then
+    echo "\u2728 Entering nix-shell for $(pwd)... \u2728"
+    nice -19 nix-shell --command "echo 'Leaving nix-shell for $(pwd). Back to you reqularly scheduled shell \u26a1'"
+  fi
+}
+
+nix_auto_shell # check initial directory on login
+
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec get_start_time
 add-zsh-hook precmd calc_exec_time
+add-zsh-hook chpwd nix_auto_shell
 
 setopt prompt_subst
 PROMPT='%B%{$fg[red]%}[%{$fg[green]%}%D %T%{$fg[red]%}][%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]${vcs_info_msg_0_}%b
