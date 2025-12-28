@@ -1,6 +1,0 @@
-{ ... }:
-
-{
-  services.ntp.enable = true;
-}
-

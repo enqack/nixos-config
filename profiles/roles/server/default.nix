@@ -5,12 +5,17 @@
     # base profile
     ../base
 
-    ../../../config/hardware/graphics.nix
+    ../../../modules/hardware/graphics
 
-    ../../../config/virtualization/libvirt.nix
-    ../../../config/virtualization/podman.nix
-    ../../../config/virtualization/virt-manager.nix
+    ../../../modules/virtualization/libvirt
+    ../../../modules/virtualization/podman
+    ../../../modules/virtualization/virt-manager
   ];
+
+  modules.hardware.graphics.enable = true;
+  modules.virtualization.libvirt.enable = true;
+  modules.virtualization.podman.enable = true;
+  modules.virtualization.virt-manager.enable = true;
 
   services.cockpit = {
     enable = true;

@@ -1,44 +1,53 @@
-{ config, pkgs, disko, ... }:
+{ config, pkgs, ... }:
 
 {
-  networking = {
-    hostName = "nixany";
-  };
-
   imports = [
     ./hardware-configuration.nix
     ./disko-configuration.nix
-
-    ../../config/base/env.nix
-    ../../config/base/nix.nix
-    ../../config/base/networking.nix
-    ../../config/base/packages.nix
-    ../../config/base/users.nix
-
-    ../../config/services/acpi.nix
-    ../../config/services/logind.nix
-    ../../config/services/nix-index.nix
-    ../../config/services/plymouth.nix
-    ../../config/services/ssh.nix
-    ../../config/services/xserver.nix
-
-    ../../config/system/auto-upgrade.nix
-    ../../config/system/boot.nix
-    ../../config/system/garbage-collection.nix
-    ../../config/system/issue.nix
-    ../../config/system/time.nix
-
-    ../../config/hardware/bluetooth.nix
-    ../../config/hardware/graphics.nix
-    ../../config/hardware/sound.nix
-
-    ../../config/ui/console.nix
-    ../../config/ui/fonts.nix
-
-    ../../modules/users/skeleton
+    ../../modules/base/env
+    ../../modules/base/nix
+    ../../modules/base/networking
+    ../../modules/base/users
+    ../../modules/services/acpi
+    ../../modules/services/logind
+    ../../modules/services/nix-index
+    ../../modules/services/plymouth-config
+    ../../modules/services/ssh
+    ../../modules/services/xserver
+    ../../modules/system/auto-upgrade
+    ../../modules/system/boot
+    ../../modules/system/garbage-collection
+    ../../modules/system/issue
+    ../../modules/system/time
+    ../../modules/hardware/bluetooth
+    ../../modules/hardware/graphics
+    ../../modules/hardware/sound
+    ../../modules/ui/console
+    ../../modules/ui/fonts
   ];
 
-  # Additional configurations that don’t fit specific module
-  system.stateVersion = "24.05";
-}
+  modules.base.env.enable = true;
+  modules.base.nix.enable = true;
+  modules.base.networking.enable = true;
+  modules.base.users.enable = true;
+  modules.services.acpi.enable = true;
+  modules.services.logind.enable = true;
+  modules.services.nix-index.enable = true;
+  modules.services.plymouth-config.enable = true;
+  modules.services.ssh.enable = true;
+  modules.services.xserver.enable = true;
+  modules.system.auto-upgrade.enable = true;
+  modules.system.boot.enable = true;
+  modules.system.garbage-collection.enable = true;
+  modules.system.issue.enable = true;
+  modules.system.time.enable = true;
+  modules.hardware.bluetooth.enable = true;
+  modules.hardware.graphics.enable = true;
+  modules.hardware.sound.enable = true;
+  modules.ui.console.enable = true;
+  modules.ui.fonts.enable = true;
 
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+}

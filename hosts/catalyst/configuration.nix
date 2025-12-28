@@ -10,8 +10,10 @@
     ../../profiles/software/python
     ../../profiles/software/steam
 
-    ../../config/hardware/spacemouse.nix
+    ../../modules/hardware/spacemouse
   ];
+
+  modules.hardware.spacemouse.enable = true;
 
   config = {
     networking = {
@@ -65,11 +67,10 @@
     # boot.initrd.systemd.emergencyAccess = true;
 
     environment.systemPackages = with pkgs; [
-      inputs.spnav-mouse.packages.${system}.spnav-mouse
+      inputs.spnav-mouse.packages.${config.nixpkgs.system}.spnav-mouse
       eslint
       obs-studio
       wineWowPackages.stable # support both 32-bit and 64-bit applications
     ];
   };
 }
-

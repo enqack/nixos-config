@@ -9,16 +9,22 @@ in
     # base profile
     ../base
 
-    ../../../config/hardware/graphics.nix
-    ../../../config/hardware/bluetooth.nix
-    ../../../config/hardware/sound.nix
+    ../../../modules/hardware/graphics
+    ../../../modules/hardware/bluetooth
+    ../../../modules/hardware/sound
     
-    ../../../config/services/plymouth.nix
-    ../../../config/services/xserver.nix
+    ../../../modules/services/plymouth-config
+    ../../../modules/services/xserver
 
     ../../../overlays/google-chrome
     ../../../overlays/vscode
   ];
+
+  modules.hardware.graphics.enable = true;
+  modules.hardware.bluetooth.enable = true;
+  modules.hardware.sound.enable = true;
+  modules.services.plymouth-config.enable = true;
+  modules.services.xserver.enable = true;
 
   # List packages installed in desktop profile.
   environment.systemPackages = with pkgs; [

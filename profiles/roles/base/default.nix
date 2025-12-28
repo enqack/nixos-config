@@ -1,42 +1,64 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
-    ../../../config/base/channel-init.nix
-    ../../../config/base/config-fetch.nix
-    ../../../config/base/env.nix
-    ../../../config/base/networking.nix
-    ../../../config/base/nix.nix
-    ../../../config/base/users.nix
+    ../../../modules/base/channel-init
+    ../../../modules/base/config-fetch
+    ../../../modules/base/env
+    ../../../modules/base/networking
+    ../../../modules/base/nix
+    ../../../modules/base/users
+    ../../../modules/filesystem/lvm
+    ../../../modules/security/polkit
+    ../../../modules/services/acpi
+    ../../../modules/services/logind
+    #../../../modules/services/nix-index
+    ../../../modules/services/nixos-updates
+    ../../../modules/services/ntp
+    ../../../modules/services/ssh
+    ../../../modules/services/sysstat
+    ../../../modules/system/auto-upgrade
+    ../../../modules/system/boot
+    ../../../modules/system/garbage-collection
+    ../../../modules/system/issue
+    ../../../modules/system/time
+    ../../../modules/ui/console
+    ../../../modules/ui/fonts
 
-    ../../../config/filesystem/lvm.nix
-
-    ../../../config/security/polkit.nix
-
-    ../../../config/services/acpi.nix
-    ../../../config/services/logind.nix
-    #../../../config/services/nix-index.nix
-    ../../../config/services/nixos-updates.nix
-    ../../../config/services/ntp.nix
-    ../../../config/services/ssh.nix
-    ../../../config/services/sysstat.nix
-
-    ../../../config/system/auto-upgrade.nix
-    ../../../config/system/boot.nix
-    ../../../config/system/garbage-collection.nix
-    ../../../config/system/issue.nix
-    ../../../config/system/time.nix
-
-    ../../../config/ui/console.nix
-    ../../../config/ui/fonts.nix
-
+    # Existing modules that were already there
     ../../../modules/applications/tmux
     ../../../modules/applications/zsh
 
+    # Software profiles
     ../../software/nix-extra
     ../../software/vim
   ];
 
+  # Enable new refactored modules
+  modules.base.channel-init.enable = true;
+  modules.base.config-fetch.enable = true;
+  modules.base.env.enable = true;
+  modules.base.networking.enable = true;
+  modules.base.nix.enable = true;
+  modules.base.users.enable = true;
+  modules.filesystem.lvm.enable = true;
+  modules.security.polkit.enable = true;
+  modules.services.acpi.enable = true;
+  modules.services.logind.enable = true;
+  #modules.services.nix-index.enable = true;
+  modules.services.nixos-updates.enable = true;
+  modules.services.ntp.enable = true;
+  modules.services.ssh.enable = true;
+  modules.services.sysstat.enable = true;
+  modules.system.auto-upgrade.enable = true;
+  modules.system.boot.enable = true;
+  modules.system.garbage-collection.enable = true;
+  modules.system.issue.enable = true;
+  modules.system.time.enable = true;
+  modules.ui.console.enable = true;
+  modules.ui.fonts.enable = true;
+
+  # Existing module configuration
   applications.tmux.enable = true;
 
   programs.dconf.enable = true;
