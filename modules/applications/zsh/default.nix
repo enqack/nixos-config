@@ -111,15 +111,15 @@
 
       format = ''
         [\[](bold red)$env_var[\]](bold red)[\[](bold red)$username[@](bold green)$hostname $directory[\]](bold red) $git_branch$git_status$git_commit$git_state$nix_shell$direnv$docker_context$container$python$nodejs$rust$golang$java$dotnet$lua$zig$jobs$battery
-        [\(](yellow)rc: $status et: ${"$"}{custom.et}[\)](yellow) $character
+        ${"$"}{custom.status} $character
       '';
 
       custom = {
-        et = {
-          command = "echo $PROMPT_ET";
-          when = "true";
-          format = "[$output]($style)";
-          style = "bold yellow";
+        status = {
+          command = "echo $PROMPT_STATUS_STRING";
+          when = "test -n \"$PROMPT_STATUS_STRING\"";
+          format = "$output";
+          style = "";
         };
       };
 

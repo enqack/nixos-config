@@ -7,6 +7,7 @@ autoload -U colors && colors
 export TERM="xterm-256color"
 
 typeset -g PROMPT_ET="0"
+typeset -g PROMPT_STATUS_STRING=""
 typeset -g _did_run_cmd=0
 
 export elapsed=0
@@ -36,16 +37,27 @@ function calc_exec_time() {
     PROMPT_ET=$elapsed
     unset cmd_timer
   else
+    elapsed="0ms"
     PROMPT_ET="0"
   fi
 
   export PROMPT_ET
 }
 
-function _prompt_et_update() {
-  (( _did_run_cmd )) || { PROMPT_ET="0"; export PROMPT_ET; return; }
+function _update_prompt_status() {
+  local rc=$?
   _did_run_cmd=0
   calc_exec_time
+
+  local raw_str
+  if (( rc == 0 )); then
+    raw_str="%F{yellow}(rc: %F{green}0%F{yellow} et: %F{cyan}${elapsed}%F{yellow})%f"
+  else
+    raw_str="%F{yellow}(rc: %B%F{red}${rc}%b%F{yellow} et: %F{cyan}${elapsed}%F{yellow})%f"
+  fi
+  # Expand zsh prompt sequences to ANSI codes
+  PROMPT_STATUS_STRING=${(%)raw_str}
+  export PROMPT_STATUS_STRING
 }
 
 # Check for a shell.nix file upon entering directory with nix-shells as parent
@@ -65,18 +77,7 @@ function _prompt_time_update() {
 }
 add-zsh-hook precmd _prompt_time_update
 
-function _print_rc_et() {
-  calc_exec_time
-  local rc=$?
-
-  if (( rc == 0 )); then
-    print -P "%F{yellow}(rc: %F{green}0%F{yellow} et: %F{cyan}${elapsed}%F{yellow})%f"
-  else
-    print -P "%F{yellow}(rc: %F{red}${rc}%F{yellow} et: %F{cyan}${elapsed}%F{yellow})%f"
-  fi
-}
-
-add-zsh-hook precmd _prompt_et_update
+add-zsh-hook precmd _update_prompt_status
 
 add-zsh-hook preexec get_start_time
 
