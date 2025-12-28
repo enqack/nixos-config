@@ -3,7 +3,7 @@
 #
 
 # xdg-desktop-portal plugin
-export XDG_CURRENT_DESKTOP=xcb
+#export XDG_CURRENT_DESKTOP=xcb
 
 # XDG paths
 export XDG_DATA_HOME=${XDG_DATA_HOME:="$HOME/.local/share"}
@@ -40,13 +40,13 @@ export XSERVERRC="${XDG_CONFIG_HOME}/X11/xserverrc"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 #
-# Defautl applications
+# Default applications
 #
 export READER="zathurai"
 export BROWSER="google-chrome-stable"
 export VIDEO="mpv"
 export IMAGE="sxiv"
-export EDITOR="vim"
+export EDITOR="hx"
 export PAGER="less"
 export TERMINAL="alacritty"
 export COLORTERM="truecolor"

@@ -7,11 +7,12 @@
     grub.efiSupport = true;
     grub.device = "nodev";
     grub.useOSProber = true;
+    grub.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFont-Medium.ttf";
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot/efi";
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_default;
   
   boot.initrd.systemd.enable = true;
   boot.initrd.systemd.initrdBin = [

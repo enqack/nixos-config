@@ -5,7 +5,10 @@
     packages = with pkgs; [
       corefonts
       ipafont
-      nerdfonts
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-mono
+      nerd-fonts.noto
+      nerd-fonts.symbols-only
       noto-fonts
       noto-fonts-color-emoji
       noto-fonts-cjk-sans
@@ -20,8 +23,8 @@
       subpixel.rgba = "rgb";
       subpixel.lcdfilter = "default";
       defaultFonts = {
-        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK JP" ];
-        sansSerif = [ "NotoSans Nerd Font" "Noto Sans CJK JP" ];
+        monospace = [ "FiraMono Nerd Font" "Symbols Nert Font" "Noto Sans Mono CJK JP" ];
+        sansSerif = [ "NotoSans Nerd Font" "Symbols Nerd Font" "Noto Sans CJK JP" ];
         serif = [ "NotoSerif Nerd Font" "Noto Serif CJK JP"];
       };
     };

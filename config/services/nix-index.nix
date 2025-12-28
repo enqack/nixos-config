@@ -3,6 +3,10 @@ let
   nixPathString = lib.concatStringsSep ":" config.nix.nixPath;
 in
 {
+  environment.systemPackages = with pkgs; [
+    nix-index
+  ];
+
   systemd.services.nix-index-update = {
     description = "Update nix-index cache with limited resources";
     wants = [ "nix-index-update.timer" ];

@@ -19,4 +19,9 @@
     extraModules = [];
     critical = true;
   }
+  {
+    name = "flex";
+    extraModules = [];
+    critical = true;
+  }
 ]

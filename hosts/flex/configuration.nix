@@ -1,33 +1,39 @@
-{ config, pkgs, lib, disko, ... }:
+{ config, pkgs, lib, disko, inputs, ... }:
 
 {
-  networking = {
-    hostName = "flex";
-  };
-
   imports = [
     ./hardware-configuration.nix
     # (import ./disko-configuration.nix { device = "/dev/sda"; })
 
     ../../profiles/roles/laptop
   ];
+  
+  config = {
+    networking = {
+      hostName = "flex";
+    };
 
-  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot";
+    boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot";
 
-  virtualisation.containers.enable = true;
+    virtualisation.containers.enable = true;
 
-  services.xserver.videoDrivers = [ "intel" ];
+    services.xserver.videoDrivers = [ "intel" ];
 
-  nix.settings = {
-    max-jobs = 1;
-    cores = 1;
+    nix.settings = {
+      max-jobs = 1;
+      cores = 1;
+    };
+
+    programs.wireshark.enable = true;
+    #programs.wireshark.package = "wireshark-qt";
+
+    # boot.initrd.systemd.emergencyAccess = true;
+
+    environment.systemPackages = with pkgs; [
+      eslint
+      obs-studio
+      wineWowPackages.stable # support both 32-bit and 64-bit applications
+    ];
   };
-
-  boot.kernelParams = [
-    "rd.systemd.log_level=debug"
-    "rd.debug"
-  ];
-
-  # boot.initrd.systemd.emergencyAccess = true;
 }
 

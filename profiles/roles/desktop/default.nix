@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   nixos-blur-theme = import ../../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
   nixos-black-snowflake-plymouth = import ../../../pkgs/plymouth-themes/nixos-black-snowflake { pkgs = pkgs; };
@@ -24,7 +24,7 @@ in
   environment.systemPackages = with pkgs; [
     alacritty
     alsa-utils
-    blueman
+    ansi2html
     bluez
     calcurse
     cmatrix

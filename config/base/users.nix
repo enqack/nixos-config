@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 let
   rootPassword = builtins.hashString "sha256" "none";
 in
@@ -18,14 +18,14 @@ in
     users.sysadm = {
       isNormalUser = true;
       description = "System Administrator";
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "dialout" "libvirtd"];
       initialPassword = "sysadm";
     };
 
     users.sysop = {
       isNormalUser = true;
       description = "System Operator";
-      extraGroups = [ "sudo" ];
+      extraGroups = [ "sudo" "dialout" "libvirtd" ];
       initialPassword = "sysop";
     };
   };

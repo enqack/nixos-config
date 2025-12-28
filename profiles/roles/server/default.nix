@@ -11,4 +11,14 @@
     ../../../config/virtualization/podman.nix
     ../../../config/virtualization/virt-manager.nix
   ];
+
+  services.cockpit = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      Session = {
+        Banner = "/etc/issue.plaintext";
+      };
+    };  
+  };
 }

@@ -6,7 +6,6 @@
     powerOnBoot = true;
   };
 
-  services.blueman.enable = true;
   systemd.services.bluetooth = {
     enable = true;
     serviceConfig = {

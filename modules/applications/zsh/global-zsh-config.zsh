@@ -1,20 +1,19 @@
+# zshrc
+
+autoload -Uz add-zsh-hook
+
 # Enable colors
 autoload -U colors && colors
 export TERM="xterm-256color"
 
-# Enable vcs_info
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' stagedstr '!'
-zstyle ':vcs_info:*' unstagedstr '?'
-zstyle ':vcs_info:git*' formats "%B%{$fg[red]%}{ %{$fg[blue]%}%b%{$reset_color%} %m%u%c%{$fg[red]%}%B}"
+typeset -g PROMPT_ET="0"
+typeset -g _did_run_cmd=0
 
-function precmd {
-  vcs_info
-}
+export elapsed=0
+cmd_timer=
 
 function get_start_time() {
+  _did_run_cmd=1
   cmd_timer=$(date +%s%3N)
 }
 
@@ -34,42 +33,72 @@ function calc_exec_time() {
     elif ((s > 0)); then elapsed=${s}.$((ms / 10))s
     else elapsed=${ms}ms
     fi
-
+    PROMPT_ET=$elapsed
     unset cmd_timer
   else
-    elapsed=0
+    PROMPT_ET="0"
+  fi
+
+  export PROMPT_ET
+}
+
+function _prompt_et_update() {
+  (( _did_run_cmd )) || { PROMPT_ET="0"; export PROMPT_ET; return; }
+  _did_run_cmd=0
+  calc_exec_time
+}
+
+# Check for a shell.nix file upon entering directory with nix-shells as parent
+enter_shell_nix() {
+  if [[ -f shell.nix && ! $IN_NIX_SHELL && -d ../../nix-shells ]]; then
+    echo "\u2728 Entering nix-shell for $(pwd)... \u2728"
+    nice -19 nix-shell
+    echo 'Back to your regular shell \u26a1'
   fi
 }
 
-nix_auto_shell() {
-  if [[ -f shell.nix || -f default.nix ]]; then
-    echo "\u2728 Entering nix-shell... \u2728"
-    nice -19 nix-shell 
-    echo "Welcome to nix-shell for $(pwd) \u26a1"
+typeset -g PROMPT_TIME=""
+
+function _prompt_time_update() {
+  PROMPT_TIME="$(date '+%Y-%m-%d %H:%M:%S')"
+  export PROMPT_TIME
+}
+add-zsh-hook precmd _prompt_time_update
+
+function _print_rc_et() {
+  calc_exec_time
+  local rc=$?
+
+  if (( rc == 0 )); then
+    print -P "%F{yellow}(rc: %F{green}0%F{yellow} et: %F{cyan}${elapsed}%F{yellow})%f"
+  else
+    print -P "%F{yellow}(rc: %F{red}${rc}%F{yellow} et: %F{cyan}${elapsed}%F{yellow})%f"
   fi
 }
 
-nix_auto_shell # check initial directory on login
+add-zsh-hook precmd _prompt_et_update
 
-autoload -Uz add-zsh-hook
 add-zsh-hook preexec get_start_time
-add-zsh-hook precmd calc_exec_time
-add-zsh-hook chpwd nix_auto_shell
+
+add-zsh-hook chpwd enter_shell_nix
+enter_shell_nix # check initial directory on login
+
 
 setopt prompt_subst
-PROMPT='%B%{$fg[red]%}[%{$fg[green]%}%D %T%{$fg[red]%}][%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]${vcs_info_msg_0_}%b
-%{$fg[yellow]%}(rc: %? et: ${elapsed} )%{$reset_color%}'
+#PROMPT='%B%{$fg[red]%}[%{$fg[green]%}%D %T%{$fg[red]%}][%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%b
+#%{$fg[yellow]%}(rc: %? et: ${elapsed} )%{$reset_color%}'
 
-if [[ $USER == 'root' ]]; then
-    PROMPT="$PROMPT # "
-else
-    PROMPT="$PROMPT $ "
-fi
+#if [[ $USER == 'root' ]]; then
+#    PROMPT="$PROMPT👑%{$fg[red]%}>%{$reset_color%} "
+#else
+#    PROMPT="$PROMPT%{$fg[red]%}>%{$reset_color%} "
+#fi
 
 # History in cache directory
+mkdir -p $XDG_DATA_HOME/zsh
+HISTFILE=$XDG_DATA_HOME/zsh/history
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=$XDG_DATA_HOME/zsh/history
 
 # Mail notification
 MAILCHECK=1
@@ -79,9 +108,12 @@ autoload checkmail
 # Basic auto/tab complete
 autoload -U compinit
 zstyle ':completion:*' menu select cache-path ${XDG_CACHE_HOME}/zsh/zcompcache
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zmodload zsh/complist
 compinit -d ${XDG_CACHE_HOME}/zsh/zcompdump
 _comp_options+=(globdots)               # Include hidden files.
+
 
 # vi mode
 bindkey -v
@@ -101,16 +133,6 @@ bindkey "^[[8~" end-of-line
 # Move back and forth one word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
-
-# Check for a shell.nix file upon entering a directory
-autoload -U add-zsh-hook
-enter_shell_nix() {
-  if [[ -f shell.nix && ! $IN_NIX_SHELL ]]; then
-    echo "Entering nix-shell environment..."
-    nix-shell
-  fi
-}
-add-zsh-hook chpwd enter_shell_nix
 
 # Change cursor shape for different vi modes
 function zle-keymap-select {
@@ -134,7 +156,7 @@ zle-line-init() {
 
 zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+#preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
 lfcd () {
@@ -152,8 +174,81 @@ bindkey -s '^o' 'lfcd\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+zplug "zsh-users/zsh-completions"
+zplug "wfxr/forgit"
+
 # Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
+eval "$(fzf --zsh)"
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --min-height=5+
+  --color=fg:#d0d0d0,fg+:#d0d0d0
+  --color=hl:#5f87af,hl+:#ff0000,info:#afaf87,marker:#87ff00
+  --color=prompt:#ff0000,spinner:#af5fff,pointer:#af5fff,header:#87afaf
+  --color=border:#262626,label:#aeaeae,query:#d9d9d9
+  --border="rounded" --border-label="" --preview-window="border-rounded" --prompt="> "
+  --marker=">" --pointer="◆" --separator="─" --scrollbar="│"'
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+# Use fd for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# custom fzf flags
+# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+# To make fzf-tab follow FZF_DEFAULT_OPTS.
+# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# cd replacement (z)
+eval "$(zoxide init zsh)"
+
+# thefuck replacement
+eval "$(pay-respects zsh --alias)"
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo

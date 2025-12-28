@@ -2,7 +2,7 @@
 
 {
   services.logind = {
-    powerKey = "ignore"; # Ignores a single press of the power button
+    settings.Login.HandlePowerKey = "ignore"; # Ignores a single press of the power button
   };
 }
 

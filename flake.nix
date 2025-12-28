@@ -2,21 +2,27 @@
   description = "NixOS configuration for NestOps";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager?ref=release-24.05";
+    home-manager.url = "github:nix-community/home-manager?ref=release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-search-tv.url = "github:3timeslazy/nix-search-tv?ref=v2.2.3";
+    nix-search-tv.inputs.nixpkgs.follows = "nixpkgs";
+
+    spnav-mouse.url = "github:enqack/spnav-mouse";
+    spnav-mouse.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix, cachix, nix-search-tv, ... }@inputs:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -36,9 +42,11 @@
 
     # Define fallback hosts for any missing critical hosts
     fallbackHosts = [
-      { name = "flex"; extraModules = []; critical = true; }
+      { name = "scalar"; extraModules = []; critical = true; }
       { name = "reactor"; extraModules = []; critical = true; }
-      { name = "vector"; extraModules = []; critical = true; }
+      { name = "catalyst"; extraModules = []; critical = true; }
+      { name = "tartarus"; extraModules = []; critical = true; }
+      { name = "elysium"; extraModules = []; critical = true; }
     ];
 
     # Combine valid hosts with fallback critical hosts (only if missing)
@@ -62,9 +70,13 @@
         config.allowUnfree = true;
       };
 
+      specialArgs = {
+        inherit inputs;
+      };
+
       modules = [
         disko.nixosModules.disko
-        (./hosts/${host.name}/configuration.nix)
+        ./hosts/${host.name}/configuration.nix
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
       ] ++ host.extraModules;
@@ -72,9 +84,9 @@
 
   in {
     # Generate host configurations from `hosts` list
-    nixosConfigurations = lib.genAttrs 
-      (map (h: h.name) allHosts) 
-      (hostName: mkHost 
+    nixosConfigurations = lib.genAttrs
+      (map (h: h.name) allHosts)
+      (hostName: mkHost
         (builtins.elemAt allHosts (findIndex hostName allHosts))
       );
   };
