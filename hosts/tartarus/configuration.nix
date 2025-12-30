@@ -49,7 +49,7 @@
     };
 
     virtualisation.containers.enable = true;
-    modules.virtualization.libvirtd.authorizedKeys = [
+    modules.virtualization.libvirt.authorizedKeys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICAA22ZIzJ7iz2Ue2tK3Qlzn5LIzLsPQL6x4rUewHIOG sysop@elysium"
     ];
 
