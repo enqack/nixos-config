@@ -10,6 +10,11 @@ in
       default = "nodev";
       description = "The device to install GRUB to.";
     };
+    grubGfxMode = lib.mkOption {
+      type = lib.types.str;
+      default = "1920x1080";
+      description = "Display resolution used by GRUB";
+    };
     efiSupport = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -20,11 +25,25 @@ in
   config = lib.mkIf cfg.enable {
     # Bootloader
     boot.loader = {
-      grub.enable = true;
-      grub.efiSupport = cfg.efiSupport;
-      grub.device = cfg.grubDevice;
-      grub.useOSProber = true;
-      grub.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFont-Medium.ttf";
+      grub = {
+        enable = true;
+        efiSupport = cfg.efiSupport;
+        device = cfg.grubDevice;
+        useOSProber = true;
+        font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFont-Medium.ttf";
+        gfxmodeEfi = cfg.grubGfxMode;
+        gfxpayloadEfi = "keep";
+        extraConfig = ''
+          insmod all_video
+          insmod gfxterm
+          insmod png
+
+          set gfxmode=${cfg.grubGfxMode}
+          set gfxpayload=${config.boot.loader.grub.gfxpayloadEfi}
+
+          terminal_output gfxterm
+        '';
+      };
       efi.canTouchEfiVariables = cfg.efiSupport;
       efi.efiSysMountPoint = "/boot/efi";
     };

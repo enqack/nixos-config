@@ -29,6 +29,13 @@
           position x=0 y=1440
           focus-at-startup
         }
+
+        layout {
+          background-color "#000000"
+          shadow {
+            on
+          }
+        }
       '';
     };
     configFiles = [

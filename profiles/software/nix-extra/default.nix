@@ -19,6 +19,7 @@
     nixd
     nixfmt-rfc-style
     nvd
+    nurl
     manix 
     statix
   ];

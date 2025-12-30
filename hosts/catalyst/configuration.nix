@@ -59,25 +59,21 @@
     };
 
     modules.hardware.spacemouse.enable = true;
+    modules.system.boot.grubGfxMode = "3440x1440,2560x1440,1920x1080,auto";
+
+    distro-grub-themes = {
+      enable = true;
+    };
+    
+    # boot.loader.grub = {
+    #   theme = pkgs.sleek-grub-theme;
+    #   #splashImage = "${pkgs.sleek-grub-theme}";
+    # };
 
     virtualisation.containers.enable = true;
 
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = true;
-
-    boot.loader.grub = {
-      theme = pkgs.stdenv.mkDerivation {
-        pname = "distro-grub-themes";
-        version = "3.1";
-        src = pkgs.fetchFromGitHub {
-          owner = "AdisonCavani";
-          repo = "distro-grub-themes";
-          rev = "v3.1";
-          hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
-        };
-        installPhase = "cp -r customize/nixos $out";
-      };
-    };
 
     services.udev.extraRules = ''
       ATTRS{idVendor}=="256f", ATTRS{idProduct}=="c638", ENV{LIBINPUT_IGNORE_DEVICE}="1"

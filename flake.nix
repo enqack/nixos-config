@@ -15,6 +15,9 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
+    distro-grub-themes.inputs.nixpkgs.follows = "nixpkgs";
+    
     nix-search-tv.url = "github:3timeslazy/nix-search-tv?ref=v2.2.3";
     nix-search-tv.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -25,7 +28,7 @@
     spnav-mouse.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix, cachix, nix-search-tv, dms, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix, distro-grub-themes, cachix, nix-search-tv, dms, ... }:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -82,6 +85,7 @@
         ./hosts/${host.name}/configuration.nix
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
+        distro-grub-themes.nixosModules.x86_64-linux.default
       ] ++ host.extraModules;
     };
 
