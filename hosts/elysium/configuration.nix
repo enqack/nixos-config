@@ -30,7 +30,7 @@
         netdevConfig = {
           Kind = "bridge";
           Name = "br0";
-          MACAddress = "a0:ad:9f:89:1c:8f";
+          MACAddress = "bc:fc:e7:75:28:64";
         };
         bridgeConfig.STP = false;
       };
@@ -60,7 +60,6 @@
 
     virtualisation.containers.enable = true;
 
-    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_15;
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = true;
 
@@ -82,9 +81,9 @@
     };
 
     environment.systemPackages = with pkgs; [
-      inputs.spnav-mouse.packages.${config.nixpkgs.system}.spnav-mouse 
-      eslint
+      inputs.spnav-mouse.packages.${config.nixpkgs.system}.spnav-mouse
       obs-studio
+      streamdeck-ui
       wineWowPackages.stable # support both 32-bit and 64-bit applications
     ];
   };
