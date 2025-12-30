@@ -25,7 +25,7 @@
       enable = true;
       netdevs."20-br0" = {
         netdevConfig = {
-          Kind = "bridg";
+          Kind = "bridge";
           Name = "br0";
           MACAddress = "70:85:c2:b9:15:ed";          
         };
