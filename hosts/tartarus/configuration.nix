@@ -17,7 +17,7 @@
       hostName = "tartarus";
       dhcpcd = {
         enable = true;
-        denyInterfaces = [ "enp4s0" "br0" ];
+        denyInterfaces = [ "enp3s0" "br0" ];
       };
     };
 
@@ -25,14 +25,14 @@
       enable = true;
       netdevs."20-br0" = {
         netdevConfig = {
-          Kind = "bridge";
+          Kind = "bridg";
           Name = "br0";
-          MACAddress = "e0:d5:5e:e4:bd:bf";
+          MACAddress = "70:85:c2:b9:15:ed";          
         };
         bridgeConfig.STP = false;
       };
-      networks."05-enp4s0" = {
-        matchConfig.Name = "enp4s0";
+      networks."05-enp3s0" = {
+        matchConfig.Name = "enp3s0";
         networkConfig.Bridge = "br0";
         networkConfig.DHCP = "no";
         networkConfig.IPv6AcceptRA = "no";
@@ -41,7 +41,7 @@
       networks."40-br0" = {
         matchConfig.Name = "br0";
         networkConfig = {
-          Address = "192.168.8.101/24";
+          Address = "192.168.8.126/24";
           Gateway = "192.168.8.1";
           DNS = "192.168.8.1";
         };
