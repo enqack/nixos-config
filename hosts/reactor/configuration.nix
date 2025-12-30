@@ -49,6 +49,9 @@
     };
 
     virtualisation.containers.enable = true;
+    modules.virtualisation.libvirt.authorizedKeys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAzjKMlxX72Fh8wjkgYkhFKwUwW/rdpa9lFV3NYQ/4d sysop@catalyst"
+    ];
 
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = true;

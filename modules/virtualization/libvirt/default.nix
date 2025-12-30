@@ -5,6 +5,12 @@ in
 {
   options.modules.virtualization.libvirt = {
     enable = lib.mkEnableOption "virtualization libvirt configuration";
+
+    authorizedKeys = lib.mkOption {
+      description = "List of authorized key strings";
+      type = lib.types.listOf lib.types.str;
+      default = [];
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -14,6 +20,13 @@ in
 
     users.users.qemu-libvirtd = {
       extraGroups = [ "video" "render" ];
+    };
+
+    users.users.libvirt = {
+      isNormalUser = true;
+      group = "users";
+      extraGroups = [ "libvirtd" ];
+      openssh.authorizedKeys.keys = cfg.authorizedKeys;
     };
   };
 }
