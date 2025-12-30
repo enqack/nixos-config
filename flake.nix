@@ -52,7 +52,7 @@
       { name = "reactor"; extraModules = []; critical = true; }
       { name = "catalyst"; extraModules = [ dms.nixosModules.dankMaterialShell dms.nixosModules.greeter ]; critical = true; }
       { name = "tartarus"; extraModules = []; critical = true; }
-      { name = "elysium"; extraModules = []; critical = true; }
+      { name = "elysium"; extraModules = [ dms.nixosModules.dankMaterialShell dms.nixosModules.greeter ]; critical = true; }
     ];
 
     # Combine valid hosts with fallback critical hosts (only if missing)
