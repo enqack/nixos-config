@@ -24,14 +24,14 @@ in
       users.sysadm = {
         isNormalUser = true;
         description = "System Administrator";
-        extraGroups = [ "wheel" "dialout" "libvirtd"];
+        extraGroups = [ "wheel" "dialout" "libvirtd" "video" "render" ];
         initialPassword = "sysadm";
       };
 
       users.sysop = {
         isNormalUser = true;
         description = "System Operator";
-        extraGroups = [ "sudo" "dialout" "libvirtd" ];
+        extraGroups = [ "sudo" "dialout" "libvirtd" "video" "render" ];
         initialPassword = "sysop";
       };
     };

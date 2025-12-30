@@ -8,6 +8,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd = {
+      enable = true;
+    };
+
+    users.users.qemu-libvirtd = {
+      extraGroups = [ "video" "render" ];
+    };
   };
 }

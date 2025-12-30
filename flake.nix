@@ -18,11 +18,14 @@
     nix-search-tv.url = "github:3timeslazy/nix-search-tv?ref=v2.2.3";
     nix-search-tv.inputs.nixpkgs.follows = "nixpkgs";
 
+    dms.url = "github:AvengeMedia/DankMaterialShell/stable";
+    dms.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    
     spnav-mouse.url = "github:enqack/spnav-mouse";
     spnav-mouse.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix, cachix, nix-search-tv, ... }@inputs:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix, cachix, nix-search-tv, dms, ... }:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -44,7 +47,7 @@
     fallbackHosts = [
       { name = "scalar"; extraModules = []; critical = true; }
       { name = "reactor"; extraModules = []; critical = true; }
-      { name = "catalyst"; extraModules = []; critical = true; }
+      { name = "catalyst"; extraModules = [ dms.nixosModules.dankMaterialShell dms.nixosModules.greeter ]; critical = true; }
       { name = "tartarus"; extraModules = []; critical = true; }
       { name = "elysium"; extraModules = []; critical = true; }
     ];

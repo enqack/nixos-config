@@ -27,6 +27,8 @@
     programs.wireshark.enable = true;
     #programs.wireshark.package = "wireshark-qt";
 
+    modules.services.nix-index.enable = lib.mkForce false;
+
     # boot.initrd.systemd.emergencyAccess = true;
 
     environment.systemPackages = with pkgs; [

@@ -9,15 +9,18 @@
 
     ../../profiles/software/python
     ../../profiles/software/steam
+    ../../profiles/software/dms-greeter
 
     ../../modules/hardware/spacemouse
   ];
 
-  modules.hardware.spacemouse.enable = true;
-
   config = {
     networking = {
       hostName = "catalyst";
+      dhcpcd = {
+        enable = true;
+        denyInterfaces = [ "enp113s0" "br0" ];
+      };
       firewall = {
         allowedTCPPorts = [ 5000 ];
         allowedUDPPorts = [ 65458 ];
@@ -27,6 +30,35 @@
         ];
       };
     };
+
+    systemd.network = {
+      enable = true;
+      netdevs."20-br0" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br0";
+          MACAddress = "a0:ad:9f:89:1c:8f";
+        };
+        bridgeConfig.STP = false;
+      };
+      networks."05-enp113s0" = {
+        matchConfig.Name = "enp113s0";
+        networkConfig.Bridge = "br0";
+        networkConfig.DHCP = "no";
+        networkConfig.IPv6AcceptRA = "no";
+        linkConfig.RequiredForOnline = "no";
+      };
+      networks."40-br0" = {
+        matchConfig.Name = "br0";
+        networkConfig = {
+          Address = "192.168.8.100/24";
+          Gateway = "192.168.8.1";
+          DNS = "192.168.8.1";
+        };
+      };
+    };
+
+    modules.hardware.spacemouse.enable = true;
 
     virtualisation.containers.enable = true;
 
@@ -74,3 +106,4 @@
     ];
   };
 }
+

@@ -46,7 +46,7 @@
         type = "lvm_vg";
         lvs = {
           root = {
-            size = "32G";
+            size = "100G";
             priority = 3;
             content = {
               type = "filesystem";

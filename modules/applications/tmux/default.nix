@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-    options.applications.tmux = {
+    options.modules.applications.tmux = {
       enable = lib.mkEnableOption "Install tmux";
     };
 
-    config = lib.mkIf config.applications.tmux.enable {
+    config = lib.mkIf config.modules.applications.tmux.enable {
       programs.tmux = {
         enable = true;
         plugins = with pkgs; [

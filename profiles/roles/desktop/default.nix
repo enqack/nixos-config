@@ -26,6 +26,14 @@ in
   modules.services.plymouth-config.enable = true;
   modules.services.xserver.enable = true;
 
+  services.printing = {
+    enable = true;
+    browsed.enable = true;
+    cups-pdf = {
+      enable = true;
+    };
+  };
+
   # List packages installed in desktop profile.
   environment.systemPackages = with pkgs; [
     alacritty

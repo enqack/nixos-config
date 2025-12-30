@@ -12,7 +12,7 @@
     ../../../modules/security/polkit
     ../../../modules/services/acpi
     ../../../modules/services/logind
-    #../../../modules/services/nix-index
+    ../../../modules/services/nix-index
     ../../../modules/services/nixos-updates
     ../../../modules/services/ntp
     ../../../modules/services/ssh
@@ -25,16 +25,14 @@
     ../../../modules/ui/console
     ../../../modules/ui/fonts
 
-    # Existing modules that were already there
     ../../../modules/applications/tmux
     ../../../modules/applications/zsh
 
-    # Software profiles
     ../../software/nix-extra
     ../../software/vim
   ];
 
-  # Enable new refactored modules
+  # Enable configruation modules
   modules.base.channel-init.enable = true;
   modules.base.config-fetch.enable = true;
   modules.base.env.enable = true;
@@ -45,7 +43,7 @@
   modules.security.polkit.enable = true;
   modules.services.acpi.enable = true;
   modules.services.logind.enable = true;
-  #modules.services.nix-index.enable = true;
+  modules.services.nix-index.enable = true;
   modules.services.nixos-updates.enable = true;
   modules.services.ntp.enable = true;
   modules.services.ssh.enable = true;
@@ -58,8 +56,8 @@
   modules.ui.console.enable = true;
   modules.ui.fonts.enable = true;
 
-  # Existing module configuration
-  applications.tmux.enable = true;
+  # Enable application modules
+  modules.applications.tmux.enable = true;
 
   programs.dconf.enable = true;
 
