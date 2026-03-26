@@ -9,13 +9,13 @@ let
 in
 {
   options.modules.base.nix = {
-    enable = lib.mkEnableOption "base nix configuration";
+    enable = lib.mkEnableOption "darwin base nix configuration";
   };
 
   config = lib.mkIf cfg.enable {
     nix = {
+      enable = false;
       package = pkgs.nixVersions.stable;
-      optimise.automatic = true;
       settings = {
         experimental-features = [
           "nix-command"

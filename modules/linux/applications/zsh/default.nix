@@ -23,7 +23,7 @@
         source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
         source ${pkgs.zsh-forgit}/share/zsh/zsh-forgit/forgit.plugin.zsh
-        
+
         # Zplug setup
         export ZPLUG_HOME=$HOME/.zplug
         source ${pkgs.zplug}/share/zplug/init.zsh
@@ -47,14 +47,14 @@
         zplug load
       '';
 
-      promptInit = builtins.readFile ./global-zsh-config.zsh;   
+      promptInit = builtins.readFile ./global-zsh-config.zsh;
 
       shellAliases = {
         # Handy ls aliases
         ls = "eza --color=always --icons=always --git";
         ll = "ls -lF --group";
         la = "ls -la";
-        lt = "ls -lt modified --group";
+        lt = "ls -lt modified --sort modified --group";
         l  = "ls -CF";
 
         # enable zoxide
@@ -65,7 +65,7 @@
         df   = "df -h";
         du   = "du -h";
         free = "free -h";
-        
+
         # complement forgit aliases
         gs  = "git status";
         gft = "git fetch";
@@ -317,7 +317,7 @@
           disabled = false;
           format = " [as $symbol]($style)";
         };
-        
+
         jobs = {
           disabled = false;
           format = " [$symbol$number]($style)";

@@ -9,7 +9,7 @@ let
 in
 {
   options.modules.virtualization.virt-manager = {
-    enable = lib.mkEnableOption "darwim virtualization virt-manager configuration";
+    enable = lib.mkEnableOption "darwin virtualization virt-manager configuration";
   };
 
   config = lib.mkIf cfg.enable {

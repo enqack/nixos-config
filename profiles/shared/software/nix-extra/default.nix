@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     deadnix
     graphviz # for nix-du
+    nil
     nix-diff
     nix-du
     nix-health
@@ -20,7 +21,7 @@
     nixfmt-rfc-style
     nvd
     nurl
-    manix 
+    manix
     statix
   ];
 }

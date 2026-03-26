@@ -5,12 +5,13 @@
     #../../../../modules/linux/base/channel-init
     ../../../../modules/darwin/base/nix
     #../../../../modules/linux/base/users
-    #../../../../modules/linux/services/nix-index
+    ../../../../modules/darwin/services/nix-index
     #../../../../modules/linux/services/ssh
     ../../../../modules/shared/system/issue
+    ../../../../modules/darwin/ui/fonts
 
     #../../../../modules/linux/applications/tmux
-    #../../../../modules/linux/applications/zsh
+    ../../../../modules/darwin/applications/zsh
 
     ../../../shared/software/nix-extra
     ../../../shared/software/vim
@@ -20,9 +21,10 @@
   #modules.base.channel-init.enable = true;
   modules.base.nix.enable = true;
   #modules.base.users.enable = true;
-  #modules.services.nix-index.enable = true;
+  modules.services.nix-index.enable = true;
   #modules.services.ssh.enable = true;
   modules.system.issue.enable = true;
+  modules.ui.fonts.enable = true;
 
   # Enable application modules
   #modules.applications.tmux.enable = true;
@@ -101,6 +103,7 @@
     stow
     systemctl-tui
     tcpdump
+    tig
     tldr
     trash-cli
     tree

@@ -154,6 +154,7 @@
     systemctl-tui
     tcpdump
     tldr
+    tig
     traceroute
     trash-cli
     tree
