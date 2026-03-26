@@ -1,4 +1,4 @@
-{ config, pkgs, disko, ... }:
+{ ... }:
 
 {
   networking = {
@@ -9,7 +9,6 @@
     ./hardware-configuration.nix
     (import ./disko-configuration.nix { device = "/dev/sda"; })
 
-    ../../profiles/roles/server
+    ../../profiles/linux/roles/server
   ];
 }
-

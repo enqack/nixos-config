@@ -1,13 +1,13 @@
-{ config, pkgs, lib, disko, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     (import ./disko-configuration.nix { device = "/dev/nvme0n1"; })
 
-    ../../profiles/roles/laptop
+    ../../profiles/linux/roles/laptop
   ];
-  
+
   config = {
     networking = {
       hostName = "scalar";
@@ -26,4 +26,3 @@
     ];
   };
 }
-

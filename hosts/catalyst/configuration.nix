@@ -1,17 +1,25 @@
-{ config, pkgs, lib, disko, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
-    (import ./disko-configuration.nix { rootfs = "/dev/nvme0n1"; homefs = "/dev/nvme1n1"; })
+    (import ./disko-configuration.nix {
+      rootfs = "/dev/nvme0n1";
+      homefs = "/dev/nvme1n1";
+    })
 
-    ../../profiles/roles/workstation
+    ../../profiles/linux/roles/workstation
 
-    ../../profiles/software/python
-    ../../profiles/software/steam
-    ../../profiles/software/dms-greeter
+    ../../profiles/shared/software/python
+    ../../profiles/shared/software/steam
+    ../../profiles/linux/software/dms-greeter
 
-    ../../modules/hardware/spacemouse
+    ../../modules/linux/hardware/spacemouse
   ];
 
   config = {
@@ -19,14 +27,23 @@
       hostName = "catalyst";
       dhcpcd = {
         enable = true;
-        denyInterfaces = [ "enp113s0" "br0" ];
+        denyInterfaces = [
+          "enp113s0"
+          "br0"
+        ];
       };
       firewall = {
         allowedTCPPorts = [ 5000 ];
         allowedUDPPorts = [ 65458 ];
         allowedUDPPortRanges = [
-          { from = 23235; to = 23262; }
-          { from = 23243; to = 23253; }
+          {
+            from = 23235;
+            to = 23262;
+          }
+          {
+            from = 23243;
+            to = 23253;
+          }
         ];
       };
     };
@@ -64,7 +81,7 @@
     distro-grub-themes = {
       enable = true;
     };
-    
+
     # boot.loader.grub = {
     #   theme = pkgs.sleek-grub-theme;
     #   #splashImage = "${pkgs.sleek-grub-theme}";
@@ -102,4 +119,3 @@
     ];
   };
 }
-

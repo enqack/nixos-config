@@ -1,23 +1,29 @@
-{ config, pkgs, lib, disko, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    (import ./disko-configuration.nix { rootfs = "/dev/nvme2n1"; homefs = "/dev/nvme1n1"; })
+    (import ./disko-configuration.nix {
+      rootfs = "/dev/nvme2n1";
+      homefs = "/dev/nvme1n1";
+    })
 
-    ../../profiles/roles/workstation
-    
-    ../../profiles/software/python
-    ../../profiles/software/steam    
-    
+    ../../profiles/linux/roles/workstation
+
+    ../../profiles/shared/software/python
+    ../../profiles/shared/software/steam
+
   ];
-  
+
   config = {
     networking = {
       hostName = "reactor";
       dhcpcd = {
         enable = true;
-        denyInterfaces = [ "enp4s0" "br0" ];
+        denyInterfaces = [
+          "enp4s0"
+          "br0"
+        ];
       };
     };
 

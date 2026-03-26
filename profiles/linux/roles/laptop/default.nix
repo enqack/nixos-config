@@ -6,7 +6,7 @@
     ../desktop
 
     # bring in yubikey support
-    ../../software/yubico
+    ../../../linux/software/yubico
   ];
 
   # List packages installed in laptop profile.

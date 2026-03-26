@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.modules.virtualization.virt-manager;
 in
 {
   options.modules.virtualization.virt-manager = {
-    enable = lib.mkEnableOption "virtualization virt-manager configuration";
+    enable = lib.mkEnableOption "linux virtualization virt-manager configuration";
   };
 
   config = lib.mkIf cfg.enable {
@@ -13,6 +18,6 @@ in
     environment.systemPackages = with pkgs; [
       virt-viewer
       spice-gtk
-    ];    
+    ];
   };
 }

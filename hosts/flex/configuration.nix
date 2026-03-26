@@ -1,13 +1,17 @@
-{ config, pkgs, lib, disko, inputs, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
     # (import ./disko-configuration.nix { device = "/dev/sda"; })
 
-    ../../profiles/roles/laptop
+    ../../profiles/linux/roles/laptop
   ];
-  
+
   config = {
     networking = {
       hostName = "flex";
@@ -38,4 +42,3 @@
     ];
   };
 }
-

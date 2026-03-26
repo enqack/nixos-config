@@ -5,11 +5,11 @@
     # base profile
     ../base
 
-    ../../../modules/hardware/graphics
+    ../../../../modules/linux/hardware/graphics
 
-    ../../../modules/virtualization/libvirt
-    ../../../modules/virtualization/podman
-    ../../../modules/virtualization/virt-manager
+    ../../../../modules/linux/virtualization/libvirt
+    ../../../../modules/linux/virtualization/podman
+    ../../../../modules/linux/virtualization/virt-manager
   ];
 
   modules.hardware.graphics.enable = true;

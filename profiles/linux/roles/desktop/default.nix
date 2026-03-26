@@ -1,7 +1,9 @@
 { pkgs, ... }:
 let
   nixos-blur-theme = import ../../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
-  nixos-black-snowflake-plymouth = import ../../../pkgs/plymouth-themes/nixos-black-snowflake { pkgs = pkgs; };
+  nixos-black-snowflake-plymouth = import ../../../pkgs/plymouth-themes/nixos-black-snowflake {
+    pkgs = pkgs;
+  };
   cptv = import ../../../pkgs/cptv { pkgs = pkgs; };
 in
 {
@@ -9,15 +11,15 @@ in
     # base profile
     ../base
 
-    ../../../modules/hardware/graphics
-    ../../../modules/hardware/bluetooth
-    ../../../modules/hardware/sound
-    
-    ../../../modules/services/plymouth-config
-    ../../../modules/services/xserver
+    ../../../../modules/linux/hardware/graphics
+    ../../../../modules/linux/hardware/bluetooth
+    ../../../../modules/linux/hardware/sound
 
-    ../../../overlays/google-chrome
-    ../../../overlays/vscode
+    ../../../../modules/linux/services/plymouth-config
+    ../../../../modules/linux/services/xserver
+
+    ../../../../overlays/linux/google-chrome
+    ../../../../overlays/linux/vscode
   ];
 
   modules.hardware.graphics.enable = true;

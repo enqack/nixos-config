@@ -2,34 +2,34 @@
 
 {
   imports = [
-    ../../../modules/base/channel-init
-    ../../../modules/base/config-fetch
-    ../../../modules/base/env
-    ../../../modules/base/networking
-    ../../../modules/base/nix
-    ../../../modules/base/users
-    ../../../modules/filesystem/lvm
-    ../../../modules/security/polkit
-    ../../../modules/services/acpi
-    ../../../modules/services/logind
-    ../../../modules/services/nix-index
-    ../../../modules/services/nixos-updates
-    ../../../modules/services/ntp
-    ../../../modules/services/ssh
-    ../../../modules/services/sysstat
-    ../../../modules/system/auto-upgrade
-    ../../../modules/system/boot
-    ../../../modules/system/garbage-collection
-    ../../../modules/system/issue
-    ../../../modules/system/time
-    ../../../modules/ui/console
-    ../../../modules/ui/fonts
+    ../../../../modules/linux/base/channel-init
+    ../../../../modules/linux/base/config-fetch
+    ../../../../modules/linux/base/env
+    ../../../../modules/linux/base/networking
+    ../../../../modules/linux/base/nix
+    ../../../../modules/linux/base/users
+    ../../../../modules/linux/filesystem/lvm
+    ../../../../modules/linux/security/polkit
+    ../../../../modules/linux/services/acpi
+    ../../../../modules/linux/services/logind
+    ../../../../modules/linux/services/nix-index
+    ../../../../modules/linux/services/nixos-updates
+    ../../../../modules/linux/services/ntp
+    ../../../../modules/linux/services/ssh
+    ../../../../modules/linux/services/sysstat
+    ../../../../modules/linux/system/auto-upgrade
+    ../../../../modules/linux/system/boot
+    ../../../../modules/linux/system/garbage-collection
+    ../../../../modules/shared/system/issue
+    ../../../../modules/linux/system/time
+    ../../../../modules/linux/ui/console
+    ../../../../modules/linux/ui/fonts
 
-    ../../../modules/applications/tmux
-    ../../../modules/applications/zsh
+    ../../../../modules/linux/applications/tmux
+    ../../../../modules/linux/applications/zsh
 
-    ../../software/nix-extra
-    ../../software/vim
+    ../../../shared/software/nix-extra
+    ../../../shared/software/vim
   ];
 
   # Enable configruation modules

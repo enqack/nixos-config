@@ -9,13 +9,13 @@
     ./hardware-configuration.nix
     (import ./disko-configuration.nix { device = "/dev/vda"; })
 
-    ../../profiles/roles/server
+    ../../profiles/linux/roles/server
     ../../profiles/hardware/vm-guest
     
     # Import base modules needed for boot
-    ../../modules/system/boot
-    ../../modules/base/nix # usually needed for nix command
-    ../../modules/base/env # environment variables
+    ../../modules/linux/system/boot
+    ../../modules/linux/base/nix # usually needed for nix command
+    ../../modules/linux/base/env # environment variables
   ];
 
   modules.system.boot.enable = true;
