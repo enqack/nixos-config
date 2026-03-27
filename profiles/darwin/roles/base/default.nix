@@ -36,6 +36,10 @@
   #     init.defaultBranch = "main";
   #   };
   # };
+  #
+
+  # Add ability to used TouchID for sudo authentication
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # List packages installed in base profile.
   environment.systemPackages = with pkgs; [
@@ -111,6 +115,7 @@
     unzip
     usbutils
     wallust
+    watch
     wget
     xdg-utils
     zip

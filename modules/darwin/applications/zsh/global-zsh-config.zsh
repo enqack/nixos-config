@@ -354,7 +354,7 @@ alias diff='diff --color=auto'
 alias less='less -R'
 alias gitdiff='git diff --color | delta'
 
-# nixos aliases
+# nix aliases
 alias eds='sudo vim /etc/nixos/hosts/$(hostname)/configuration.nix'
 alias edh='vim ~/.config/home-manager/home.nix'
 alias rbs='nh os switch $(readlink -f /etc/nixos)'
