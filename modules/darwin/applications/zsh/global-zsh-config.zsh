@@ -247,6 +247,8 @@ zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
+# how many lines does fzf's prompt occupies
+zstyle ':fzf-tab:*' fzf-pad 4
 
 # cd replacement (z)
 eval "$(zoxide init zsh)"
