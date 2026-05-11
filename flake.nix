@@ -101,13 +101,19 @@
         {
           name = "tartarus";
           system = "x86_64-linux";
-          extraModules = [ ];
+          extraModules = [
+            dms.nixosModules.dankMaterialShell
+            dms.nixosModules.greeter
+          ];
           critical = true;
         }
         {
           name = "elysium";
           system = "x86_64-linux";
-          extraModules = [ ];
+          extraModules = [
+            dms.nixosModules.dankMaterialShell
+            dms.nixosModules.greeter
+          ];
           critical = true;
         }
       ];
