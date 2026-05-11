@@ -1,23 +1,28 @@
-{ config, pkgs, lib, disko, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    (import ./disko-configuration.nix { rootfs = "/dev/nvme2n1"; homefs = "/dev/nvme1n1"; })
+    (import ./disko-configuration.nix {
+      rootfs = "/dev/nvme2n1";
+      homefs = "/dev/nvme1n1";
+    })
 
-    ../../profiles/roles/workstation
-    
-    ../../profiles/software/python
-    ../../profiles/software/steam    
-    
+    ../../profiles/linux/roles/workstation
+
+    ../../profiles/shared/software/python
+
   ];
-  
+
   config = {
     networking = {
       hostName = "reactor";
       dhcpcd = {
         enable = true;
-        denyInterfaces = [ "enp4s0" "br0" ];
+        denyInterfaces = [
+          "enp4s0"
+          "br0"
+        ];
       };
     };
 
@@ -41,9 +46,9 @@
       networks."40-br0" = {
         matchConfig.Name = "br0";
         networkConfig = {
-          Address = "192.168.8.101/24";
-          Gateway = "192.168.8.1";
-          DNS = "192.168.8.1";
+          Address = "192.168.10.101/24";
+          Gateway = "192.168.10.1";
+          DNS = "192.168.10.1";
         };
       };
     };

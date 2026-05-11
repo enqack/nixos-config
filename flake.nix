@@ -1,10 +1,13 @@
 {
-  description = "NixOS configuration for NestOps";
+  description = "NixOS and Nix-Darwin configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nix-darwin.url = "github:nix-darwin/nix-darwin?ref=nix-darwin-25.11";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager?ref=release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -17,84 +20,162 @@
 
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
     distro-grub-themes.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     nix-search-tv.url = "github:3timeslazy/nix-search-tv?ref=v2.2.3";
     nix-search-tv.inputs.nixpkgs.follows = "nixpkgs";
 
     dms.url = "github:AvengeMedia/DankMaterialShell/stable";
     dms.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    
+
     spnav-mouse.url = "github:enqack/spnav-mouse";
     spnav-mouse.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, disko, sops-nix, distro-grub-themes, cachix, nix-search-tv, dms, ... }:
-  let
-    system = "x86_64-linux";
-    lib = nixpkgs.lib;
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nix-darwin,
+      home-manager,
+      disko,
+      sops-nix,
+      distro-grub-themes,
+      nix-search-tv,
+      dms,
+      ...
+    }:
+    let
+      lib = nixpkgs.lib;
 
-    # Load the nix file with host definitions
-    hosts = import ./hosts.nix;
+      isDarwin = sys: lib.hasSuffix "-darwin" sys;
 
-    # Validation function to ensure each host has the correct fields
-    isValidHost = host:
-      lib.isAttrs host &&
-      lib.hasAttr "name" host && lib.isString host.name &&
-      lib.hasAttr "extraModules" host && lib.isList host.extraModules &&
-      lib.hasAttr "critical" host && lib.isBool host.critical;
+      # Load the nix file with host definitions
+      hosts = import ./hosts.nix;
 
-    # Filter out invalid hosts and keep only valid ones
-    validHosts = lib.filter isValidHost hosts;
+      # Validation function to ensure each host has the correct fields
+      isValidHost =
+        host:
+        lib.isAttrs host
+        && lib.hasAttr "name" host
+        && lib.isString host.name
+        && lib.hasAttr "system" host
+        && lib.isString host.system
+        && lib.hasAttr "extraModules" host
+        && lib.isList host.extraModules
+        && lib.hasAttr "critical" host
+        && lib.isBool host.critical;
 
-    # Define fallback hosts for any missing critical hosts
-    fallbackHosts = [
-      { name = "scalar"; extraModules = []; critical = true; }
-      { name = "reactor"; extraModules = []; critical = true; }
-      { name = "catalyst"; extraModules = [ dms.nixosModules.dankMaterialShell dms.nixosModules.greeter ]; critical = true; }
-      { name = "tartarus"; extraModules = []; critical = true; }
-      { name = "elysium"; extraModules = [ dms.nixosModules.dankMaterialShell dms.nixosModules.greeter ]; critical = true; }
-    ];
+      # Filter out invalid hosts and keep only valid ones
+      validHosts = lib.filter isValidHost hosts;
 
-    # Combine valid hosts with fallback critical hosts (only if missing)
-    allHosts = lib.concatMap (host:
-      if lib.any (h: h.name == host.name) validHosts then [] else [host]
-    ) fallbackHosts ++ validHosts;
+      # Define fallback hosts for any missing critical hosts
+      fallbackHosts = [
+        {
+          name = "forte";
+          system = "aarch64-darwin";
+          extraModules = [ ];
+          critical = true;
+        }
+        {
+          name = "scalar";
+          system = "x86_64-linux";
+          extraModules = [ ];
+          critical = true;
+        }
+        {
+          name = "reactor";
+          system = "x86_64-linux";
+          extraModules = [ ];
+          critical = true;
+        }
+        {
+          name = "catalyst";
+          system = "x86_64-linux";
+          extraModules = [
+            dms.nixosModules.dankMaterialShell
+            dms.nixosModules.greeter
+          ];
+          critical = true;
+        }
+        {
+          name = "tartarus";
+          system = "x86_64-linux";
+          extraModules = [ ];
+          critical = true;
+        }
+        {
+          name = "elysium";
+          system = "x86_64-linux";
+          extraModules = [ ];
+          critical = true;
+        }
+      ];
 
-    # Function to find the index of an element by name
-    findIndex = name: list:
-      let
-        names = map (h: h.name) list;
-      in
-        builtins.elemAt (builtins.filter (i: builtins.elemAt names i == name) (lib.range 0 (builtins.length names - 1))) 0;
+      # Combine valid hosts with fallback critical hosts (only if missing)
+      allHosts =
+        lib.concatMap (
+          host: if lib.any (h: h.name == host.name) validHosts then [ ] else [ host ]
+        ) fallbackHosts
+        ++ validHosts;
 
-    # Function to generate each host configuration
-    mkHost = host: lib.nixosSystem {
-      inherit system;
+      linuxHosts = lib.filter (h: !(isDarwin h.system)) allHosts;
+      darwinHosts = lib.filter (h: isDarwin h.system) allHosts;
 
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      mkLinuxHost =
+        host:
+        nixpkgs.lib.nixosSystem {
+          system = host.system;
 
-      specialArgs = {
-        inherit inputs;
-      };
+          pkgs = import nixpkgs {
+            system = host.system;
+            config.allowUnfree = true;
+          };
 
-      modules = [
-        disko.nixosModules.disko
-        ./hosts/${host.name}/configuration.nix
-        home-manager.nixosModules.home-manager
-        sops-nix.nixosModules.sops
-        distro-grub-themes.nixosModules.x86_64-linux.default
-      ] ++ host.extraModules;
-    };
+          specialArgs = {
+            inherit inputs;
+          };
 
-  in {
-    # Generate host configurations from `hosts` list
-    nixosConfigurations = lib.genAttrs
-      (map (h: h.name) allHosts)
-      (hostName: mkHost
-        (builtins.elemAt allHosts (findIndex hostName allHosts))
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/${host.name}/configuration.nix
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            distro-grub-themes.nixosModules.x86_64-linux.default
+          ]
+          ++ host.extraModules;
+        };
+
+      mkDarwinHost =
+        host:
+        nix-darwin.lib.darwinSystem {
+          system = host.system;
+
+          pkgs = import nixpkgs {
+            system = host.system;
+            config.allowUnfree = true;
+          };
+
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            ./hosts/${host.name}/configuration.nix
+            home-manager.darwinModules.home-manager
+            sops-nix.darwinModules.sops
+          ]
+          ++ host.extraModules;
+        };
+
+    in
+    {
+      nixosConfigurations = lib.listToAttrs (
+        map (h: { name = h.name; value = mkLinuxHost h; }) linuxHosts
       );
-  };
+
+      darwinConfigurations = lib.listToAttrs (
+        map (h: { name = h.name; value = mkDarwinHost h; }) darwinHosts
+      );
+    };
 }

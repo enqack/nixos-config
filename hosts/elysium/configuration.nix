@@ -1,26 +1,36 @@
-{ config, pkgs, lib, disko, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
-    (import ./disko-configuration.nix { rootfs = "/dev/nvme0n1"; homefs = "/dev/nvme1n1"; })
+    (import ./disko-configuration.nix {
+      rootfs = "/dev/nvme0n1";
+      homefs = "/dev/nvme1n1";
+    })
 
-    ../../profiles/roles/workstation
-    
-    ../../profiles/software/python
-    ../../profiles/software/steam
-    ../../profiles/software/dms-greeter
+    ../../profiles/linux/roles/workstation
 
+    ../../profiles/shared/software/python
+    ../../profiles/shared/software/steam
+    ../../profiles/linux/software/dms-greeter
 
-    ../../modules/hardware/spacemouse
+    ../../modules/linux/hardware/spacemouse
   ];
-  
+
   config = {
     networking = {
       hostName = "elysium";
       dhcpcd = {
         enable = true;
-        denyInterfaces = [ "enp113s0" "br0" ];
+        denyInterfaces = [
+          "enp113s0"
+          "br0"
+        ];
       };
     };
 
@@ -88,4 +98,3 @@
     ];
   };
 }
-

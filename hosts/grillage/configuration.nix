@@ -1,28 +1,36 @@
-{ config, pkgs, lib, disko, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
     (import ./disko-configuration.nix { device = "/dev/sda"; })
 
-    ../../profiles/roles/server
+    ../../profiles/linux/roles/server
 
-    ../../modules/nestops/cardinal/dhcpd
-    ../../modules/nestops/cardinal/dns
+    ../../modules/linux/nestops/cardinal/dhcpd
+    ../../modules/linux/nestops/cardinal/dns
   ];
 
   config = {
     networking = {
       hostName = "grillage";
     };
-    
+
     systemd.network.networks."10-enp" = {
       matchConfig.Name = "enp*";
       networkConfig = {
         DHCP = lib.mkForce "no";
         Address = "192.168.10.6/24";
         Gateway = "192.168.10.1";
-        DNS = [ "192.168.10.1" "1.1.1.1" "8.8.8.8" ];
+        DNS = [
+          "192.168.10.1"
+          "1.1.1.1"
+          "8.8.8.8"
+        ];
       };
     };
 
@@ -39,4 +47,3 @@
     ];
   };
 }
-

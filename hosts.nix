@@ -1,27 +1,38 @@
 [
   {
+    name = "flex";
+    system = "x86_64-linux";
+    extraModules = [ ];
+    critical = true;
+  }
+  {
+    name = "forte";
+    system = "aarch64-darwin";
+    extraModules = [ ];
+    critical = true;
+  }
+  {
+    name = "grillage";
+    system = "x86_64-linux";
+    extraModules = [ ];
+    critical = true;
+  }
+  {
+    name = "knell";
+    system = "x86_64-linux";
+    extraModules = [ ];
+    critical = false;
+  }
+  {
     name = "nixany";
-    extraModules = [];
+    system = "x86_64-linux";
+    extraModules = [ ];
     critical = false;
   }
   {
     name = "nesttest";
-    extraModules = [];
+    system = "x86_64-linux";
+    extraModules = [ ];
     critical = false;
-  }
-  {
-    name = "knell";
-    extraModules = [];
-    critical = false;
-  }
-  {
-    name = "grillage";
-    extraModules = [];
-    critical = true;
-  }
-  {
-    name = "flex";
-    extraModules = [];
-    critical = true;
   }
 ]
