@@ -69,6 +69,8 @@
     };
   };
 
+  environment.shells = with pkgs; [ nushell ];
+
   # List packages installed in base profile.
   environment.systemPackages = with pkgs; [
     aspell
@@ -90,6 +92,7 @@
     direnv
     dnstop
     dosfstools
+    duf
     ed
     entr
     e2fsprogs
@@ -133,6 +136,7 @@
     nmon
     noto-fonts
     noto-fonts-color-emoji
+    nushell
     openjdk
     parted
     pay-respects

@@ -51,9 +51,9 @@
       networks."40-br0" = {
         matchConfig.Name = "br0";
         networkConfig = {
-          Address = "192.168.8.100/24";
-          Gateway = "192.168.8.1";
-          DNS = "192.168.8.1";
+          Address = "192.168.10.100/24";
+          Gateway = "192.168.10.1";
+          DNS = "192.168.10.1";
         };
       };
     };
