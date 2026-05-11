@@ -5,9 +5,9 @@
     # base profile for this profile
     ../desktop
 
-    ../../../modules/linux/virtualization/libvirt
-    ../../../modules/linux/virtualization/podman
-    ../../../modules/linux/virtualization/virt-manager
+    ../../../../modules/linux/virtualization/libvirt
+    ../../../../modules/linux/virtualization/podman
+    ../../../../modules/linux/virtualization/virt-manager
   ];
 
   modules.virtualization.libvirt.enable = true;

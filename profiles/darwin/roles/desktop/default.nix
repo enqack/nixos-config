@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  cptv = import ../../../../pkgs/cptv { pkgs = pkgs; };
+  cptv = import ../../../../../pkgs/cptv { pkgs = pkgs; };
 in
 
 {

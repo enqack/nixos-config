@@ -1,10 +1,10 @@
 { pkgs, ... }:
 let
-  nixos-blur-theme = import ../../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
-  nixos-black-snowflake-plymouth = import ../../../pkgs/plymouth-themes/nixos-black-snowflake {
+  nixos-blur-theme = import ../../../../pkgs/plymouth-themes/nixos-blur { pkgs = pkgs; };
+  nixos-black-snowflake-plymouth = import ../../../../pkgs/plymouth-themes/nixos-black-snowflake {
     pkgs = pkgs;
   };
-  cptv = import ../../../pkgs/cptv { pkgs = pkgs; };
+  cptv = import ../../../../pkgs/cptv { pkgs = pkgs; };
 in
 {
   imports = [
