@@ -92,6 +92,8 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = true;
 
+    services.xserver.displayManager.sessionPackages = [ pkgs.mangowc ];
+
     services.udev.extraRules = ''
       ATTRS{idVendor}=="256f", ATTRS{idProduct}=="c638", ENV{LIBINPUT_IGNORE_DEVICE}="1"
       SUBSYSTEM=="input", ATTRS{idVendor}=="256f", ATTRS{idProduct}=="c638", TAG+="systemd", ENV{SYSTEMD_WANTS}="spnav-mouse.service"
