@@ -2,14 +2,15 @@
   description = "NixOS and Nix-Darwin configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin?ref=nix-darwin-25.11";
+    nix-darwin.url = "github:nix-darwin/nix-darwin?ref=nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager?ref=release-25.11";
+    home-manager.url = "github:nix-community/home-manager?ref=release-26.05";
+    
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     disko.url = "github:nix-community/disko";
@@ -21,7 +22,7 @@
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
     distro-grub-themes.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-search-tv.url = "github:3timeslazy/nix-search-tv?ref=v2.2.3";
+    nix-search-tv.url = "github:3timeslazy/nix-search-tv?ref=v2.2.8";
     nix-search-tv.inputs.nixpkgs.follows = "nixpkgs";
 
     dms.url = "github:AvengeMedia/DankMaterialShell/stable";

@@ -2,9 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [
-    python313
-    python313Packages.numpy
-    python313Packages.pandas
-    python313Packages.matplotlib
+    python314
+    python314Packages.numpy
+    python314Packages.pandas
+    python314Packages.matplotlib
   ];
 }

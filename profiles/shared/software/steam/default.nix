@@ -17,10 +17,10 @@
     };
     programs.gamescope.enable = true;
     hardware.steam-hardware.enable = true;
-    hardware.xpadneo.enable = true;
     hardware.graphics.enable32Bit = true;
 
     environment.systemPackages = with pkgs; [
       protonup-qt
+      steam-devices-udev-rules
     ];
 }

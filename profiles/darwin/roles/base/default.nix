@@ -94,13 +94,15 @@
     pay-respects
     pciutils
     perl538Packages.FileMimeInfo
-    pipx
-    python313
-    python313Packages.dbus-python
-    #python313Packages.jinja2
-    python313Packages.notify2
-    python313Packages.pip
-    python313Packages.sphinx
+    python314
+    python314Packages.dbus-python
+    python314Packages.jinja2
+    python314Packages.notify2
+    python314Packages.pip
+    #python314Packages.pipx
+    python314Packages.sphinx
+    ripgrep
+    ripgrep-all
     sphinx
     ssh-to-age
     sshfs

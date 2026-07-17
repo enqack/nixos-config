@@ -13,6 +13,7 @@ in
 
     ../../../../modules/linux/hardware/graphics
     ../../../../modules/linux/hardware/bluetooth
+    ../../../../modules/linux/hardware/printing
     ../../../../modules/linux/hardware/sound
 
     ../../../../modules/linux/services/plymouth-config
@@ -24,6 +25,7 @@ in
 
   modules.hardware.graphics.enable = true;
   modules.hardware.bluetooth.enable = true;
+  modules.hardware.printing.enable = true;
   modules.hardware.sound.enable = true;
   modules.services.plymouth-config.enable = true;
   modules.services.xserver.enable = true;
