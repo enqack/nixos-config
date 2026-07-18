@@ -93,7 +93,7 @@
     openjdk
     pay-respects
     pciutils
-    perl538Packages.FileMimeInfo
+    perl5Packages.FileMimeInfo
     python314
     python314Packages.dbus-python
     python314Packages.jinja2
