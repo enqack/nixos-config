@@ -9,7 +9,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      pkgs.wpa_supplicant
+      pkgs.iwd
     ];
 
     networking = {
@@ -33,8 +33,12 @@ in
     };
 
     networking.wireless = {
-      enable = true;
-      userControlled = true;
+      enable = false;
+      userControlled.enable = true;
+      iwd = {
+        enable = true;
+        settings.Settings.AutoConnect = true;
+      };
     };
 
     networking.wireless.networks = {

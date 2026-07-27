@@ -6,7 +6,7 @@
     useNautilus = false;
   };
   
-  programs.dankMaterialShell.greeter = {
+  services.displayManager.dms-greeter = {
     enable = true;
 
     compositor = {

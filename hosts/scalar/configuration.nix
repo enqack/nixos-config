@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -6,6 +6,9 @@
     (import ./disko-configuration.nix { device = "/dev/nvme0n1"; })
 
     ../../profiles/linux/roles/laptop
+
+    ../../profiles/shared/software/python
+    ../../profiles/linux/software/dms-greeter
   ];
 
   config = {
@@ -13,6 +16,13 @@
       hostName = "scalar";
     };
 
+    modules.services.nixos-updates.enable = lib.mkForce false;
+    modules.system.boot.grubGfxMode = "2560x1440,1920x1080,auto";
+
+    distro-grub-themes = {
+      enable = true;  
+    };
+    
     virtualisation.containers.enable = true;
 
     services.xserver.videoDrivers = [ "intel" ];
