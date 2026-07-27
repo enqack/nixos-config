@@ -25,6 +25,7 @@
     ../../../../modules/linux/ui/console
     ../../../../modules/linux/ui/fonts
 
+    ../../../../modules/shared/applications/tailscale
     ../../../../modules/linux/applications/tmux
     ../../../../modules/linux/applications/zsh
 
@@ -58,6 +59,7 @@
 
   # Enable application modules
   modules.applications.tmux.enable = true;
+  modules.applications.tailscale.enable = true;
 
   programs.dconf.enable = true;
 
