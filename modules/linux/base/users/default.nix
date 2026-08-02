@@ -6,13 +6,13 @@ let
   userCatalog = {
     sysadm = {
       description = "System Administrator";
-      extraGroups = [ "wheel" "dialout" "libvirtd" "video" "render" "lp" ];
+      extraGroups = [ "wheel" "dialout" "libvirtd" "video" "render" "input" "lp" ];
       initialPassword = "sysadm";
     };
 
     sysop = {
       description = "System Operator";
-      extraGroups = [ "sudo" "dialout" "libvirtd" "video" "render" "lp" ];
+      extraGroups = [ "sudo" "dialout" "libvirtd" "video" "render" "input" "lp" ];
       initialPassword = "sysop";
     };
   };
