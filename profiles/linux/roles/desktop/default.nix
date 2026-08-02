@@ -23,6 +23,7 @@ in
     ../../../../overlays/linux/vscode
   ];
 
+  modules.base.networking.backend = "networkmanager";
   modules.hardware.graphics.enable = true;
   modules.hardware.bluetooth.enable = true;
   modules.hardware.printing.enable = true;
