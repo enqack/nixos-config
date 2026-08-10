@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -13,4 +13,24 @@
   environment.systemPackages = with pkgs; [
     brightnessctl
   ];
+
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    # cpuFreqGovernor = "schedutil"; #power, performance, ondemand
+  };
+
+  services.power-profiles-daemon.enable = true;
+  
+  services.thermald.enable = true;
+
+  services.logind.settings.Login = {
+    #HandlePowerKey = lib.mkForce "suspend";
+  
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  
+    #KillUserProcesses = false;
+  };  
 }
