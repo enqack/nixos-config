@@ -11,6 +11,16 @@ in
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
+      settings = {
+        General = {
+          ControllerMode = "dual";
+          Experimental = true; # Exposes battery levels for supported devices
+          FastConnectable = true;
+        };
+        Policy = {
+          AutoEnable = true;
+        };
+      };
     };
 
     systemd.services.bluetooth = {
@@ -20,5 +30,13 @@ in
         RestartSec = 3;
       };
     };
+
+    environment.systemPackages = with pkgs; [
+      bluetui
+      bluez-tools
+      playerctl
+      libnotify
+    ];
   };
 }
+

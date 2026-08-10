@@ -109,11 +109,16 @@ enter_shell_nix() {
   case "$PWD/" in
     "$root"/*)
       [[ "$PWD" == "$_last_nix_shell_pwd" ]] && return
-      if [[ -f shell.nix && -z "$IN_NIX_SHELL" ]]; then
+      if [[ -f flake.nix && -z "$IN_NIX_SHELL" ]]; then
         _last_nix_shell_pwd="$PWD"
-        echo "✨ Entering nix-shell for $PWD... ✨"
+        echo "Entering nix develop for $PWD..."
+        nice -19 nix develop
+        echo "Back to your regular shell"
+      elif [[ -f shell.nix && -z "$IN_NIX_SHELL" ]]; then
+        _last_nix_shell_pwd="$PWD"
+        echo "Entering nix-shell for $PWD..."
         nice -19 nix-shell
-        echo "Back to your regular shell ⚡"
+        echo "Back to your regular shell"
       fi
       ;;
   esac

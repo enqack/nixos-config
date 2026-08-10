@@ -11,6 +11,7 @@
     ../../../../modules/linux/filesystem/lvm
     ../../../../modules/linux/security/polkit
     ../../../../modules/linux/services/acpi
+    ../../../../modules/linux/services/below
     ../../../../modules/linux/services/logind
     ../../../../modules/linux/services/nix-index
     ../../../../modules/linux/services/nixos-updates
@@ -43,6 +44,7 @@
   modules.filesystem.lvm.enable = true;
   modules.security.polkit.enable = true;
   modules.services.acpi.enable = true;
+  modules.services.below.enable = true;
   modules.services.logind.enable = true;
   modules.services.nix-index.enable = true;
   modules.services.nixos-updates.enable = true;
@@ -84,6 +86,7 @@
     btrfs-progs
     cachix
     chafa
+    chawan
     cmake
     cpio
     cryptsetup
@@ -111,6 +114,7 @@
     fuse2
     fzf
     fzf-git-sh
+    gdu
     gh
     git
     glow
@@ -122,6 +126,13 @@
     iotop
     jq
     killall
+    kmon
+    lazycli
+    lazydocker
+    lazygit
+    lazyjournal
+    lazysql
+    lazyworktree
     lf
     libinput
     libnotify
@@ -160,6 +171,7 @@
     sshfs
     stow
     systemctl-tui
+    television
     tcpdump
     tldr
     tig
@@ -170,7 +182,10 @@
     unzip
     usbutils
     wallust
+    wavemon
+    weathr
     wget
+    wifitui
     xdg-utils
     zip
     zoxide

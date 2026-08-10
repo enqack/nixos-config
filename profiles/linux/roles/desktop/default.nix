@@ -45,7 +45,9 @@ in
     alsa-utils
     ansi2html
     bluez
+    calcure
     calcurse
+    caligula
     cmatrix
     cptv
     firefox
