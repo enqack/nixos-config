@@ -51,7 +51,12 @@
   modules.services.ntp.enable = true;
   modules.services.ssh.enable = true;
   modules.services.sysstat.enable = true;
-  modules.system.auto-upgrade.enable = true;
+
+  modules.system.auto-upgrade = {
+    enable = true;
+    flake = "github:enqack/nixos-config";
+  };
+  
   modules.system.boot.enable = true;
   modules.system.garbage-collection.enable = true;
   modules.system.issue.enable = true;

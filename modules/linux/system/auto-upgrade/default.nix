@@ -8,11 +8,9 @@ in
     enable = lib.mkEnableOption "system auto-upgrade configuration";
 
     flake = lib.mkOption {
-      # Allow either a string (URL) or a path (local file location)
-      type = with lib.types; either str path;
-      default = "/etc/nixos";
-      description = "The flake URI (URL) or local file path to use for auto-upgrades.";
-      example = "github:user/repo"; 
+      type = lib.types.str;
+      description = "The remote flake URI (URL) to use for auto-upgrades.";
+      example = "github:user/repo";
     };
 
     dates = lib.mkOption {
@@ -29,16 +27,14 @@ in
       allowReboot = false;
       
       dates = cfg.dates;
-
-      flake = toString cfg.flake;
+      flake = cfg.flake;
       
-      flags = [ 
-        "--update-input" 
-        "nixpkgs" 
-        "--commit-lock-file" 
+      flags = [
+        "--commit-lock-file"
       ];
       
       randomizedDelaySec = "45min";
     };
   };
 }
+
