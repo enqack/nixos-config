@@ -53,7 +53,7 @@
   modules.services.sysstat.enable = true;
 
   modules.system.auto-upgrade = {
-    enable = true;
+    enable = false;
     flake = "github:enqack/nixos-config";
   };
   
